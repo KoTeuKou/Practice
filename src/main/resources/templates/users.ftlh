@@ -12,11 +12,11 @@
                         <button  class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                     <div class="btn-group col-sm">
-                        <input name="email" class="form-control mr-sm-2" type="tel" placeholder="Поиск по телефону" aria-label="Search">
+                        <input name="phone" class="form-control mr-sm-2" type="tel" placeholder="Поиск по телефону" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                     <div class="btn-group col-sm">
-                        <input name="phone" class="form-control mr-sm-2" type="email" placeholder="Поиск по mail" aria-label="Search">
+                        <input name="email" class="form-control mr-sm-2" type="email" placeholder="Поиск по mail" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                 </div>
