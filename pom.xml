@@ -17,6 +17,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.efsavage.jquery</groupId>
+            <artifactId>jquery-maven</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
             <version>2.2.0.RELEASE</version>
@@ -31,11 +41,10 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.2.0.RELEASE</version>
         </dependency>
-
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+            <version>2.2.0.RELEASE</version>
         </dependency>
 
         <dependency>
