@@ -1,4 +1,4 @@
-package org.example;
+package org.example.controller;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
