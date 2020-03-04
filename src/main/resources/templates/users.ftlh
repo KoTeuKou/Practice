@@ -9,15 +9,15 @@
                 <div class="row">
                     <div class="btn-group col-sm">
                         <input name="name" class="form-control mr-sm-2" type="text" placeholder="Поиск по имени" aria-label="Search">
-                        <button  class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                        <button  id="name" class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="">Поиск</button>
                     </div>
                     <div class="btn-group col-sm">
                         <input name="phone" class="form-control mr-sm-2" type="tel" placeholder="Поиск по телефону" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                        <button id="phone" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                     <div class="btn-group col-sm">
-                        <input name="email" class="form-control mr-sm-2" type="email" placeholder="Поиск по mail" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                        <input name="mail" class="form-control mr-sm-2" type="email" placeholder="Поиск по mail" aria-label="Search">
+                        <button id="mail" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                 </div>
                 <table class="table table-hover">
@@ -172,4 +172,14 @@
             color: #888;
         }
     </style>
+    <script>
+<#--        пока не работает -->
+        $('#name').on('click', function () {
+            alert('lel');
+            let text = $.getElementsByName("name").text();
+            $.get('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function(data){
+                alert(data);
+            });
+        })
+    </script>
 </@c.page>

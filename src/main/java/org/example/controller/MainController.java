@@ -1,37 +1,38 @@
 package org.example.controller;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
 
-import java.io.FileReader;
+import org.example.service.ElasticService;
+import org.example.util.BulkToJsonParser;
+import org.json.simple.JSONArray;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.io.IOException;
 
 @Controller
 @RequestMapping("/")
 public class MainController {
-
-    @PostMapping("/users/put-message")
-    public void post(@RequestBody String someMessage){
-        String some = someMessage;
+    private ElasticService elasticService;
+    public MainController(ElasticService elasticService){
+        this.elasticService = elasticService;
     }
     @GetMapping()
     public String getData(Model model){
         return "main";
     }
     @GetMapping("users")
-    public String get(Model model){
-        JSONArray data = new JSONArray();
-        try {
-            JSONParser parser = new JSONParser();
-            data = (JSONArray) parser.parse(
-                    new FileReader("src/main/resources/data/users.json"));
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
+    public String get(Model model) throws IOException {
+        String indexedData = elasticService.getAllAccounts();
+        JSONArray data = BulkToJsonParser.parse(indexedData);
+        model.addAttribute("users", data);
+        return "users";
+    }
+    @PostMapping("search")
+    public String getUsersBy(String param, String reqString, double cutoff_frequency, Model model) throws IOException {
+        String indexedData = elasticService.getAccountsBy(param, reqString, cutoff_frequency);
+        JSONArray data = BulkToJsonParser.parse(indexedData);
         model.addAttribute("users", data);
         return "users";
     }

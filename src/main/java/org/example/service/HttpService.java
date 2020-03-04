@@ -1,7 +1,7 @@
-package org.example.elastic;
+package org.example.service;
 
 import org.example.util.HttpRequestType;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,40 +11,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-@Repository
-public class ElasticRepository { //TODO: Refactoring
-
-    public String get() {
-        return "";
-    }
-
-    public String getAccountByEmail(String email) throws IOException {
-        String query = "{\n" +
-                "    \"query\": {\n" +
-                "        \"match\": {\n" +
-                "            \"mail\": {\n" +
-                "                \"query\": \"" + email + "\",\n" +
-                "                \"cutoff_frequency\": 0.01\n" +
-                "            }\n" +
-                "        }\n" +
-                "    }\n" +
-                "}";
-
-        return sendRequest(HttpRequestType.POST, "dvd", "_doc", "_search", query);
-    }
-
-    public String getAccountByPhone(String phone) {
-        return "";
-    }
-
-    public String getAccountByFullName(String fullName) {
-        return "";
-    }
-
-    public boolean removeAccountById(int id) {
-        return true;
-    }
-
+@Service
+public class HttpService {
+    public HttpService(){}
 
     public String sendRequest(HttpRequestType requestType, String index, String document, String endpoint, String searchQuery) throws IOException {
         HttpURLConnection connection = createHttpConnection("http://localhost:9200/", index, document, endpoint);
@@ -66,8 +35,6 @@ public class ElasticRepository { //TODO: Refactoring
 
         return responseResult;
     }
-
-
     private HttpURLConnection createHttpConnection(String url, String index, String document, String endpoint) throws IOException {
         if (index == null) {
             index = "";
