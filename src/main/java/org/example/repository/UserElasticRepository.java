@@ -2,7 +2,9 @@ package org.example.repository;
 
 import org.example.domain.User;
 import org.example.service.HttpElasticService;
+import org.example.util.BulkToJsonParser;
 import org.example.util.HttpRequestType;
+import org.example.util.UserSerialization;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -41,8 +43,8 @@ public class UserElasticRepository { //TODO: Refactoring
                 "    }\n" +
                 "}";
 
-        service.sendRequest(HttpRequestType.POST, "dvd", "_doc", null, "_search", query);
-        return null;
+        String response = service.sendRequest(HttpRequestType.POST, "dvd", "_doc", null, "_search", query);
+        return UserSerialization.fromJson(BulkToJsonParser.parse(response));
     }
 
     public List<User> getAllAccounts() throws IOException {
@@ -52,8 +54,8 @@ public class UserElasticRepository { //TODO: Refactoring
                 "        \"match_all\": {}\n" +
                 "    }\n" +
                 "}";
-        service.sendRequest(HttpRequestType.GET, "dvd", "user", null, "_search", query);
-        return null;
+        String response = service.sendRequest(HttpRequestType.GET, "dvd", "user", null, "_search", query);
+        return UserSerialization.fromJson(BulkToJsonParser.parse(response));
     }
 
 }

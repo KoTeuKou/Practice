@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 
 @Service
 public class HttpElasticService {
-    @Value("elasticsearch.url")
+    @Value("${elasticsearch.url}")
     private String url;
 
     public HttpElasticService() {

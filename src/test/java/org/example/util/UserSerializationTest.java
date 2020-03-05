@@ -13,13 +13,13 @@ class UserSerializationTest {
 
     @Test
     void deserialization() {
-        System.out.println(UserSerialization.deserialization("[{\"fullname\":\"DVD\",\"phone\":\"8800553535\",\"mail\":\"DIMA@CAT.CAT\"}]\n"));
+        System.out.println(UserSerialization.fromJson("[{\"fullname\":\"DVD\",\"phone\":\"8800553535\",\"mail\":\"DIMA@CAT.CAT\"}]\n"));
     }
 
     @Test
     void serialization() {
         User user = new User("DVD","8800553535", "DIMA@CAT.CAT");
-        String s = UserSerialization.serialization(Collections.singletonList(user));
+        String s = UserSerialization.toJson(Collections.singletonList(user));
         System.out.println(s);
     }
 }
