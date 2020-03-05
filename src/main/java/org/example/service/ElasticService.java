@@ -16,6 +16,7 @@ public class ElasticService {
     public String getAccountsBy(String param, String reqString, double cutoff_frequency) throws IOException {
         return elasticRepository.getAccountsBy(param, reqString, cutoff_frequency);
     }
+
     public String getAllAccounts() throws IOException {
         return elasticRepository.getAllAccounts();
     }

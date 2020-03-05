@@ -8,15 +8,15 @@
             <div class="form">
                 <div class="row">
                     <div class="btn-group col-sm">
-                        <input name="name" class="form-control mr-sm-2" type="text" placeholder="Поиск по имени" aria-label="Search">
-                        <button  id="name" class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="">Поиск</button>
+                        <input id="text_name" class="form-control mr-sm-2" type="text" placeholder="Поиск по имени" aria-label="Search">
+                        <button id="name" class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="">Поиск</button>
                     </div>
                     <div class="btn-group col-sm">
-                        <input name="phone" class="form-control mr-sm-2" type="tel" placeholder="Поиск по телефону" aria-label="Search">
+                        <input id="text_phone" class="form-control mr-sm-2" type="tel" placeholder="Поиск по телефону" aria-label="Search">
                         <button id="phone" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                     <div class="btn-group col-sm">
-                        <input name="mail" class="form-control mr-sm-2" type="email" placeholder="Поиск по mail" aria-label="Search">
+                        <input id="text_mail" class="form-control mr-sm-2" type="email" placeholder="Поиск по mail" aria-label="Search">
                         <button id="mail" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                 </div>
@@ -172,12 +172,31 @@
             color: #888;
         }
     </style>
+    <script data-require="jquery@1.10.0" data-semver="1.10.0" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script data-require="bootstrap@4.3.1" data-semver="4.3.1" src="//maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
-<#--        пока не работает -->
+
         $('#name').on('click', function () {
-            alert('lel');
-            let text = $.getElementsByName("name").text();
-            $.get('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function(data){
+            alert('clicked');
+            let text = document.getElementById("text_name").value;
+            $.post('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function(data){
+                alert(data);
+            });
+        });
+
+        $('#phone').on('click', function () {
+            alert('clicked');
+            let text = document.getElementById("text_phone").value;
+            $.post('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function(data){
+                alert(data);
+            });
+        });
+
+        $('#mail').on('click', function () {
+            alert('clicked');
+            let text = document.getElementById("text_mail").value;
+            $.post('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function(data){
                 alert(data);
             });
         })
