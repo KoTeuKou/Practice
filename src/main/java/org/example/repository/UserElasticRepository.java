@@ -1,32 +1,35 @@
 package org.example.repository;
 
+import org.example.domain.User;
 import org.example.service.HttpService;
 import org.example.util.HttpRequestType;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
+import java.util.List;
 
 @Repository
-public class ElasticRepository { //TODO: Refactoring
+public class UserElasticRepository { //TODO: Refactoring
 
     private HttpService service;
-    public ElasticRepository(HttpService service){
+
+    public UserElasticRepository(HttpService service){
         this.service = service;
     }
 
-    public String updateAccountById(int id){
-        return "";
+    public User updateAccountById(int id){
+        return null;
     }
 
-    public String addAccountById(int id){
-        return "";
+    public User addAccountById(int id){
+        return null;
     }
 
     public boolean removeAccountById(int id) {
         return true;
     }
 
-    public String getAccountsBy(String param, String reqString, double cutoff_frequency) throws IOException {
+    public List<User> getAccountsBy(String param, String reqString, double cutoff_frequency) throws IOException {
         String query = "{\n" +
                 "    \"query\": {\n" +
                 "        \"match\": {\n" + param +
@@ -38,17 +41,19 @@ public class ElasticRepository { //TODO: Refactoring
                 "    }\n" +
                 "}";
 
-        return service.sendRequest(HttpRequestType.POST, "dvd", "_doc", "_search", query);
+        service.sendRequest(HttpRequestType.POST, "dvd", "_doc", "_search", query);
+        return null;
     }
 
-    public String getAllAccounts() throws IOException {
+    public List<User> getAllAccounts() throws IOException {
         String query = "{\n" +
                 "    \"size\": 10000, " +
                 "    \"query\": {\n" +
                 "        \"match_all\": {}\n" +
                 "    }\n" +
                 "}";
-        return service.sendRequest(HttpRequestType.GET, "dvd", "user", "_search", query);
+        service.sendRequest(HttpRequestType.GET, "dvd", "user", "_search", query);
+        return null;
     }
 
 }

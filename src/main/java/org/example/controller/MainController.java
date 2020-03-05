@@ -24,15 +24,15 @@ public class MainController {
     }
     @GetMapping("users")
     public String get(Model model) throws IOException {
-        String indexedData = elasticService.getAllAccounts();
-        JSONArray data = BulkToJsonParser.parse(indexedData);
+        String indexedData = elasticService.getAllAccounts().toString();
+        String data = BulkToJsonParser.parse(indexedData);
         model.addAttribute("users", data);
         return "users";
     }
     @PostMapping("search")
     public String getUsersBy(String param, String reqString, double cutoff_frequency, Model model) throws IOException {
-        String indexedData = elasticService.getAccountsBy(param, reqString, cutoff_frequency);
-        JSONArray data = BulkToJsonParser.parse(indexedData);
+        String indexedData = elasticService.getAccountsBy(param, reqString, cutoff_frequency).toString();
+        String data = BulkToJsonParser.parse(indexedData);
         model.addAttribute("users", data);
         return "users";
     }
