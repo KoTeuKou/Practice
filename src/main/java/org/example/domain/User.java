@@ -1,24 +1,17 @@
 package org.example.domain;
 
 public class User {
-    private String fullname;
+    private String full_name;
     private String phone;
     private String mail;
     public User(){}
 
-    public User(String fullname, String phone, String mail) {
-        this.fullname = fullname;
+    public User(String full_name, String phone, String mail) {
+        this.full_name = full_name;
         this.phone = phone;
         this.mail = mail;
     }
 
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
 
     public String getPhone() {
         return phone;
@@ -34,5 +27,13 @@ public class User {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
 }

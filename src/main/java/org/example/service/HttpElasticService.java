@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.util.HttpRequestType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -12,11 +13,15 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 @Service
-public class HttpService {
-    public HttpService(){}
+public class HttpElasticService {
+    @Value("${elasticsearch.url}")
+    private String url;
 
-    public String sendRequest(HttpRequestType requestType, String index, String document, String endpoint, String searchQuery) throws IOException {
-        HttpURLConnection connection = createHttpConnection("http://localhost:9200/", index, document, endpoint);
+    public HttpElasticService() {
+    }
+
+    public String sendRequest(HttpRequestType requestType, String index, String document, String id, String endpoint, String searchQuery) throws IOException {
+        HttpURLConnection connection = createHttpConnection(url, index, document, id, endpoint);
         connection.setRequestMethod(requestType.toString());
 
         if (searchQuery != null) {
@@ -35,7 +40,8 @@ public class HttpService {
 
         return responseResult;
     }
-    private HttpURLConnection createHttpConnection(String url, String index, String document, String endpoint) throws IOException {
+
+    private HttpURLConnection createHttpConnection(String url, String index, String document, String id, String endpoint) throws IOException {
         if (index == null) {
             index = "";
         } else {
@@ -46,12 +52,16 @@ public class HttpService {
         } else {
             document += "/";
         }
-
+        if (id == null) {
+            id = "";
+        } else {
+            id += "/";
+        }
         if (endpoint == null) {
             endpoint = "";
         }
 
-        URL uri = new URL(url + index + document + endpoint);
+        URL uri = new URL(url + index + document + id + endpoint);
 
         return (HttpURLConnection) uri.openConnection();
     }
