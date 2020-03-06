@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.domain.User;
 import org.example.service.UserService;
+import org.json.JSONException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,14 +27,14 @@ public class MainController {
     }
 
     @GetMapping("users")
-    public String get(Model model) throws IOException {
+    public String get(Model model) throws IOException, JSONException {
         List<User> allAccounts = userService.getAllAccounts();
         model.addAttribute("users", allAccounts);
         return "users";
     }
 
     @PostMapping("search")
-    public String getUsersBy(String param, String reqString, double cutoff_frequency, Model model) throws IOException {
+    public String getUsersBy(String param, String reqString, double cutoff_frequency, Model model) throws IOException, JSONException {
         List<User> users = userService.getAccountsBy(param, reqString, cutoff_frequency);
         model.addAttribute("users", users);
         return "users";
