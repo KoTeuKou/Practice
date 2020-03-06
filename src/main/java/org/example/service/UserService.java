@@ -26,4 +26,8 @@ public class UserService {
     public User save(User user) throws IOException {
         return elasticRepository.save(user);
     }
+
+    public boolean remove(String id) throws IOException {
+        return elasticRepository.remove(id);
+    }
 }
