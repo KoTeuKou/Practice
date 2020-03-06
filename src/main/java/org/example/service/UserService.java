@@ -3,7 +3,6 @@ package org.example.service;
 import org.example.domain.User;
 import org.example.repository.UserElasticRepository;
 import org.json.JSONException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -22,5 +21,9 @@ public class UserService {
     }
     public List<User> getAllAccounts() throws IOException, JSONException {
         return elasticRepository.getAllAccounts();
+    }
+
+    public User save(User user) throws IOException {
+        return elasticRepository.save(user);
     }
 }

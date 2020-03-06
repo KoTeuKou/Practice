@@ -3,8 +3,6 @@ package org.example.util;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class BulkToJsonParserTest {
 
     @Test
