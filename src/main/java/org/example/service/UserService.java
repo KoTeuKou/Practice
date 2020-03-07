@@ -2,6 +2,7 @@ package org.example.service;
 
 import org.example.domain.User;
 import org.example.repository.UserElasticRepository;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +17,10 @@ public class UserService {
         this.elasticRepository = elasticRepository;
     }
 
-    public List<User> getAccountsBy(String param, String reqString, double cutoff_frequency) throws IOException {
+    public List<User> getAccountsBy(String param, String reqString, double cutoff_frequency) throws IOException, JSONException {
         return elasticRepository.getAccountsBy(param, reqString, cutoff_frequency);
     }
-    public List<User> getAllAccounts() throws IOException {
+    public List<User> getAllAccounts() throws IOException, JSONException {
         return elasticRepository.getAllAccounts();
     }
 }

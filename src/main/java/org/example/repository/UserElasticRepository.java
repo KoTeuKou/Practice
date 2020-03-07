@@ -5,6 +5,7 @@ import org.example.service.HttpElasticService;
 import org.example.util.BulkToJsonParser;
 import org.example.util.HttpRequestType;
 import org.example.util.UserSerialization;
+import org.json.JSONException;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class UserElasticRepository { //TODO: Refactoring
         return true;
     }
 
-    public List<User> getAccountsBy(String param, String reqString, double cutoff_frequency) throws IOException {
+    public List<User> getAccountsBy(String param, String reqString, double cutoff_frequency) throws IOException, JSONException {
         String query = "{\n" +
                 "    \"query\": {\n" +
                 "        \"match\": {\n" + param +
@@ -47,7 +48,7 @@ public class UserElasticRepository { //TODO: Refactoring
         return UserSerialization.fromJson(BulkToJsonParser.parse(response));
     }
 
-    public List<User> getAllAccounts() throws IOException {
+    public List<User> getAllAccounts() throws IOException, JSONException {
         String query = "{\n" +
                 "    \"size\": 10000, " +
                 "    \"query\": {\n" +
