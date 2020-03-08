@@ -29,14 +29,30 @@ public class MainController {
     @GetMapping("users")
     public String get(Model model) throws IOException, JSONException {
         List<User> allAccounts = userService.getAllAccounts();
-        model.addAttribute("users", allAccounts);
+        model.addAttribute("userList", allAccounts);
         return "users";
     }
 
     @PostMapping("search")
     public String getUsersBy(String param, String reqString, double cutoff_frequency, Model model) throws IOException, JSONException {
         List<User> users = userService.getAccountsBy(param, reqString, cutoff_frequency);
-        model.addAttribute("users", users);
+        model.addAttribute("userList", users);
         return "users";
+    }
+    @PostMapping("save")
+    public void save(String userString) throws IOException, JSONException {
+        String[] splittedUser = userString.split(";");
+        User user = new User(splittedUser[0], splittedUser[1], splittedUser[2]);
+        userService.save(user);
+    }
+    @PostMapping("delete")
+    public void delete(String id) throws IOException {
+        userService.remove(id);
+    }
+    @PostMapping("update")
+    public void update(String id, String userString) throws IOException {
+        String[] splittedUser = userString.split(";");
+        User user = new User(splittedUser[0], splittedUser[1], splittedUser[2]);
+        userService.update(id, user);
     }
 }

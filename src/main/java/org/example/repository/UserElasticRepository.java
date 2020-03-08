@@ -49,8 +49,8 @@ public class UserElasticRepository { //TODO: Refactoring
     public List<User> getAccountsBy(String param, String reqString, double cutoff_frequency) throws IOException, JSONException {
         String query = "{\n" +
                 "    \"query\": {\n" +
-                "        \"match\": {\n" + param +
-                "            : {\n" +
+                "        \"match\": {\n \"" + param +
+                "           \": {\n" +
                 "                \"query\": \"" + reqString + "\",\n" +
                 "                \"cutoff_frequency\":" + cutoff_frequency + "\n" +
                 "            }\n" +
@@ -73,4 +73,8 @@ public class UserElasticRepository { //TODO: Refactoring
         return UserSerialization.fromJson(BulkToJsonParser.parse(response));
     }
 
+    public User update(String id, User user) { //TODO: add body of method
+        String query = UserSerialization.toJson(user);
+        return user;
+    }
 }

@@ -30,4 +30,8 @@ public class UserService {
     public boolean remove(String id) throws IOException {
         return elasticRepository.remove(id);
     }
+
+    public User update(String id, User user) {
+        return elasticRepository.update(id, user);
+    }
 }
