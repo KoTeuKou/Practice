@@ -3,45 +3,132 @@
 <@c.page>
     <body>
     <div class="container">
-        <div id="search" action="main.ftlh" method="post">
+        <div id="search">
             <h3>Ну шо, elasticsearch?</h3>
-            <div class="form">
-                <div class="row">
-                    <div class="btn-group col-sm">
-                        <input name="name" class="form-control mr-sm-2" type="text" placeholder="Поиск по имени" aria-label="Search">
-                        <button  id="name" class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="">Поиск</button>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Добавление пользователя
+            </button>
+            <div class="collapse" id="collapseExample">
+                <form style="border: dimgrey 2px solid; padding: 10px; margin: 5px">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="validationServer01">Фамилия</label>
+                            <input id="surnameAdding" type="text" class="form-control" placeholder="Surname" value="" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="validationServer02">Имя</label>
+                            <input id="nameAdding" type="text" class="form-control"  placeholder="Name" value="" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="validationServer02">Отчество</label>
+                            <input id="PatronymicAdding" type="text" class="form-control" placeholder="Patronymic" value="" required>
+                        </div>
                     </div>
-                    <div class="btn-group col-sm">
-                        <input name="phone" class="form-control mr-sm-2" type="tel" placeholder="Поиск по телефону" aria-label="Search">
+                    <div class="form-row">
+                        <div class="col-4">
+                            <label for="validationServer03">Телефон</label>
+                            <input id="phoneAdding" type="tel" class="form-control" placeholder="Phone" required>
+                        </div>
+                        <div class="col-4">
+                            <label for="validationServer04">Mail</label>
+                            <input id="mailAdding" type="email" class="form-control" placeholder="Mail" required>
+                        </div>
+                    </div>
+                    <button id="save" class="btn btn-primary" type="submit">Добавить</button>
+                </form>
+            </div>
+            <div>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <input id="text_name" class="form-control mr-sm-2" type="text" placeholder="Поиск по имени" aria-label="Search">
+                        <button id="name" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <input id="text_phone" class="form-control mr-sm-2" type="tel" placeholder="Поиск по телефону" aria-label="Search">
                         <button id="phone" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
-                    <div class="btn-group col-sm">
-                        <input name="mail" class="form-control mr-sm-2" type="email" placeholder="Поиск по mail" aria-label="Search">
+                    <div class="col-md-4 mb-3">
+                        <input id="text_mail" class="form-control mr-sm-2" type="email" placeholder="Поиск по mail" aria-label="Search">
                         <button id="mail" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                 </div>
-                <table class="table table-hover">
+                <table class="table table-hover" id="table">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">№</th>
-                        <th scope="col">ФИО</th>
-                        <th scope="col">Телефон</th>
-                        <th scope="col">mail</th>
+                        <th data-field="id" scope="col">№</th>
+                        <th data-field="name" scope="col">ФИО</th>
+                        <th data-field="phone" scope="col">Телефон</th>
+                        <th data-field="mail" scope="col">mail</th>
+                        <th data-field="action1" scope="col">Edit</th>
+                        <th data-field="action2" scope="col">Delete</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <#list users as user>
+                    <#list userList as user>
                         <tr>
                             <td>${user_index}</td>
                             <td>${user.full_name}</td>
-                            <td>${user.phone}</td>
                             <td>${user.mail}</td>
+                            <td>${user.phone}</td>
+                            <td>
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="${user_index}" name="mainEdit" data-toggle="modal"
+                                        data-target="#modalCenter">
+                                    Edit
+                                </button>
+                                <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1000px">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalCenterTitle">Редактирование пользователя</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form style="border: dimgrey 2px solid; padding: 10px; margin: 5px">
+                                                    <div class="form-row">
+                                                        <div class="col-md-4 mb-3">
+                                                            <label for="validationServer01">Фамилия</label>
+                                                            <input id="surnameUpdating" type="text" class="form-control" placeholder="Surname" value="" required>
+                                                        </div>
+                                                        <div class="col-md-4 mb-3">
+                                                            <label for="validationServer02">Имя</label>
+                                                            <input id="nameUpdating" type="text" class="form-control"  placeholder="Name" value="" required>
+                                                        </div>
+                                                        <div class="col-md-4 mb-3">
+                                                            <label for="validationServer02">Отчество</label>
+                                                            <input id="PatronymicUpdating" type="text" class="form-control" placeholder="Patronymic" value="" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col-4">
+                                                            <label for="validationServer03">Телефон</label>
+                                                            <input id="phoneUpdating" type="tel" class="form-control" placeholder="Phone" required>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <label for="validationServer04">Mail</label>
+                                                            <input id="mailUpdating" type="email" class="form-control" placeholder="Mail" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                                                        <button type="submit" class="btn btn-primary"  name="edit">Обновить данные</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" type="button" id="${user_index}" name="delete">
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                     </#list>
-                    </tbody>
                 </table>
             </div>
-            </form>
         </div>
     </div>
     </body>
@@ -172,14 +259,90 @@
             color: #888;
         }
     </style>
+
     <script>
-<#--        пока не работает -->
+        let indexOfUpdatingUser = 0;
+        $('#table').bootstrapTable({});
+        $( document ).ready(function() {
+            let users = [];
+            for (let el in userList){
+                alert(el)
+                users.push({id: el.index, name: el.full_name, phone: el.phone, mail: el.mail})
+            }
+            $('#table').bootstrapTable("load", users);
+        });
         $('#name').on('click', function () {
-            alert('lel');
-            let text = $.getElementsByName("name").text();
-            $.get('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function(data){
-                alert(data);
+            alert('clicked');
+            let text = document.getElementById("text_name").value;
+            let users = [];
+            $.post('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function(data){
+                alert(data)
+                for (let el in data){
+                    data.push({id: el.index, name: el.full_name, phone: el.phone, mail: el.mail})
+                }
             });
-        })
+
+            $('#table').bootstrapTable("load", users);
+        });
+
+        $('#phone').on('click', function () {
+            alert('clicked');
+            let text = document.getElementById("text_phone").value;
+            let users = [];
+            $.post('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function(data){
+
+            });
+            $('#table').bootstrapTable("load", users);
+        });
+
+        $('#mail').on('click', function () {
+            alert('clicked');
+            let text = document.getElementById("text_mail").value;
+            let users = [];
+            $.post('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function(data){
+
+            });
+            $('#table').bootstrapTable("load", users);
+        });
+        $('#save').on('click', function () {
+            alert('clicked');
+            let surname = document.getElementById("surnameAdding").value;
+            let name = document.getElementById("nameAdding").value;
+            let patronymic = document.getElementById("patronymicAdding").value;
+            let phone = document.getElementById("phoneAdding").value;
+            let mail = document.getElementById("mailAdding").value;
+            let user = surname + ' ' + name + ' ' + patronymic + ';' +
+                phone + ';' + mail;
+            $.post('/save', {userString: user}, function(data){
+                alert(data)
+            });
+        });
+        $('button[name="mainEdit"]').on('click', function () {
+            alert('clicked');
+            indexOfUpdatingUser =  $(this).attr('id');
+        });
+        $('button[name="edit"]').on('click', function () {
+            alert('clicked');
+            alert(indexOfUpdatingUser);
+            let surname = document.getElementById("surnameUpdating").value;
+            let name = document.getElementById("nameUpdating").value;
+            let patronymic = document.getElementById("patronymicUpdating").value;
+            let phone = document.getElementById("phoneUpdating").value;
+            let mail = document.getElementById("mailUpdating").value;
+            let user = surname + ' ' + name + ' ' + patronymic + ';' +
+                phone + ';' + mail;
+            let userId = $(this).attr('id');
+                $.post('/update', {id: userId ,userString: user}, function(data){
+                    alert(data)
+                });
+        });
+        $('button[name="delete"]').on('click', function () {
+            alert('clicked');
+            alert($(this).attr('id'));
+            let userId = $(this).attr('id');
+            $.post('/delete', {id: userId}, function(data){
+                alert(data)
+            });
+        });
     </script>
 </@c.page>

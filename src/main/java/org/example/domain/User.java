@@ -1,10 +1,13 @@
 package org.example.domain;
 
 public class User {
+    private transient String id;
     private String full_name;
     private String phone;
     private String mail;
-    public User(){}
+
+    public User() {
+    }
 
     public User(String full_name, String phone, String mail) {
         this.full_name = full_name;
@@ -12,6 +15,13 @@ public class User {
         this.mail = mail;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getPhone() {
         return phone;
@@ -35,5 +45,15 @@ public class User {
 
     public void setFull_name(String full_name) {
         this.full_name = full_name;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", full_name='" + full_name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", mail='" + mail + '\'' +
+                '}';
     }
 }

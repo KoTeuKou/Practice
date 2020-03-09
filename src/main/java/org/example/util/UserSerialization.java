@@ -16,6 +16,10 @@ public class UserSerialization {
         return gson.fromJson(json, type);
     }
 
+    public static String toJson(User user) {
+        return gson.toJson(user);
+    }
+
     public static String toJson(List<User> users) {
         return gson.toJson(users);
     }
