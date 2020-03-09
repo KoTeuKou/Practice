@@ -14,8 +14,8 @@ class UserSerializationTest {
 
     @Test
     void serialization() {
-        User user = new User("DVD","8800553535", "DIMA@CAT.CAT");
-        String s = UserSerialization.toJson(Collections.singletonList(user));
-        System.out.println(s);
+//        User user = new User("DVD","8800553535", "DIMA@CAT.CAT");
+//        String s = UserSerialization.toJson(Collections.singletonList(user));
+//        System.out.println(s);
     }
 }
