@@ -30,10 +30,7 @@ public class UserElasticRepository { //TODO: Refactoring
     public User save(User user) throws IOException {
         String query = UserSerialization.toJson(user);
 
-        String response = service.sendRequest(HttpRequestType.POST, index, document, null, null, query);
-        String id = ElasticResponseDeserializer.getFieldAsString(response, "_id");
-
-        user.setId(id);
+        service.sendRequest(HttpRequestType.POST, index, document, user.getId(), null, query);
 
         return user;
     }
@@ -71,10 +68,5 @@ public class UserElasticRepository { //TODO: Refactoring
                 "}";
         String response = service.sendRequest(HttpRequestType.GET, index, document, null, "_search", query);
         return UserSerialization.fromJson(BulkToJsonParser.parse(response));
-    }
-
-    public User update(String id, User user) { //TODO: add body of method
-        String query = UserSerialization.toJson(user);
-        return user;
     }
 }

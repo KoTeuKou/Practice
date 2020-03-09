@@ -1,18 +1,53 @@
 package org.example.domain;
 
+import java.util.UUID;
+
 public class User {
-    private transient String id;
-    private String full_name;
+    private String id;
+    private String surname;
+    private String name;
+    private String patronymic;
     private String phone;
     private String mail;
 
     public User() {
     }
 
-    public User(String full_name, String phone, String mail) {
-        this.full_name = full_name;
+    public User(String surname, String name, String patronymic, String phone, String mail) {
+        id = UUID.randomUUID().toString();
+        this.surname = surname;
+        this.name = name;
+        this.patronymic = patronymic;
         this.phone = phone;
         this.mail = mail;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+    }
+
+    public void generateId() {
+        id = UUID.randomUUID().toString();
     }
 
     public String getId() {
@@ -39,19 +74,13 @@ public class User {
         this.mail = mail;
     }
 
-    public String getFull_name() {
-        return full_name;
-    }
-
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
-    }
-
     @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
-                ", full_name='" + full_name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
+                ", patronymic='" + patronymic + '\'' +
                 ", phone='" + phone + '\'' +
                 ", mail='" + mail + '\'' +
                 '}';

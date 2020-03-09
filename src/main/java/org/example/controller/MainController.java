@@ -39,20 +39,34 @@ public class MainController {
         model.addAttribute("userList", users);
         return "users";
     }
+
     @PostMapping("save")
-    public void save(String userString) throws IOException, JSONException {
-        String[] splittedUser = userString.split(";");
-        User user = new User(splittedUser[0], splittedUser[1], splittedUser[2]);
+    public String save(User user, Model model) throws IOException, JSONException {
+
+        user.generateId();
         userService.save(user);
+
+        List<User> accounts = userService.getAllAccounts();
+        model.addAttribute("userList", accounts);
+
+        return "users";
     }
+
     @PostMapping("delete")
-    public void delete(String id) throws IOException {
+    public String delete(String id, Model model) throws IOException, JSONException {
         userService.remove(id);
+        model.addAttribute("userList", userService.getAllAccounts());
+
+        return "users";
     }
+
     @PostMapping("update")
-    public void update(String id, String userString) throws IOException {
-        String[] splittedUser = userString.split(";");
-        User user = new User(splittedUser[0], splittedUser[1], splittedUser[2]);
-        userService.update(id, user);
+    public String update(String id, User user, Model model) throws IOException, JSONException {
+
+        user.setId(id);
+        userService.save(user);
+        model.addAttribute("userList", userService.getAllAccounts());
+
+        return "users";
     }
 }
