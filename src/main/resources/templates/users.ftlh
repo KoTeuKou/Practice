@@ -44,9 +44,19 @@
             <div>
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
+                        <input id="text_surname" class="form-control mr-sm-2" type="text" placeholder="Поиск по фамилии"
+                               aria-label="Search">
+                        <button id="surname" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                    </div>
+                    <div class="col-md-4 mb-3">
                         <input id="text_name" class="form-control mr-sm-2" type="text" placeholder="Поиск по имени"
                                aria-label="Search">
                         <button id="name" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <input id="text_patronymic" class="form-control mr-sm-2" type="text" placeholder="Поиск по отчеству"
+                               aria-label="Search">
+                        <button id="patronymic" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                     <div class="col-md-4 mb-3">
                         <input id="text_phone" class="form-control mr-sm-2" type="tel" placeholder="Поиск по телефону"
@@ -62,23 +72,45 @@
                 <table class="table table-hover" id="table">
                     <thead class="thead-dark">
                     <tr>
-                        <th data-field="id" scope="col">№</th>
-                        <th data-field="name" scope="col">ФИО</th>
+                        <th scope="col">
+                            <button class="btn btn-info" type="button" id="id" name="sort">
+                                №
+                            </button>
+                        </th>
+                        <th data-field="surname" scope="col">
+                            <button class="btn btn-info" type="button" id="surname" name="sort">
+                                Фамилия
+                            </button>
+                        </th>
+                        <th data-field="name" scope="col">
+                            <button class="btn btn-info" type="button" id="name" name="sort">
+                                Имя
+                            </button>
+                        </th>
+                        <th data-field="patronymic" scope="col">
+                            <button class="btn btn-info" type="button" id="patronymic" name="sort">
+                                Отчество
+                            </button>
+                        </th>
                         <th data-field="phone" scope="col">Телефон</th>
                         <th data-field="mail" scope="col">mail</th>
                         <th data-field="action1" scope="col">Edit</th>
                         <th data-field="action2" scope="col">Delete</th>
                     </tr>
                     </thead>
+
                     <#list userList as user>
                         <tr>
-                            <td>${user_index}</td>
-                            <td>${user.full_name}</td>
-                            <td>${user.mail}</td>
+                            <td>${user.id}</td>
+                            <td>${user.surname}</td>
+                            <td>${user.name}</td>
+                            <td>${user.patronymic}</td>
                             <td>${user.phone}</td>
+                            <td>${user.mail}</td>
                             <td>
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="${user_index}"
-                                        name="mainEdit" data-toggle="modal"
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="${user.id}"
+                                        name="mainEdit" data-foo-bar="${user.surname};${user.name};${user.patronymic};${user.mail};${user.phone}"
+                                        data-toggle="modal"
                                         data-target="#modalCenter">
                                     Edit
                                 </button>
@@ -119,12 +151,12 @@
                                                         <div class="col-4">
                                                             <label for="validationServer03">Телефон</label>
                                                             <input id="phoneUpdating" type="tel" class="form-control"
-                                                                   placeholder="Phone" required>
+                                                                   placeholder="Phone" value="" required>
                                                         </div>
                                                         <div class="col-4">
                                                             <label for="validationServer04">Mail</label>
                                                             <input id="mailUpdating" type="email" class="form-control"
-                                                                   placeholder="Mail" required>
+                                                                   placeholder="Mail" value="" required>
                                                         </div>
                                                     </div>
 
@@ -143,7 +175,7 @@
                                 </div>
                             </td>
                             <td>
-                                <button class="btn btn-danger" type="button" id="${user_index}" name="delete">
+                                <button class="btn btn-danger" type="button" id="${user.id}" name="delete">
                                     Delete
                                 </button>
                             </td>
@@ -286,68 +318,72 @@
         let indexOfUpdatingUser = 0;
         $('#table').bootstrapTable({});
         $(document).ready(function () {
-            let users = [];
-            for (let el in userList) {
-                alert(el)
-                users.push({id: el.index, name: el.full_name, phone: el.phone, mail: el.mail})
-            }
-            $('#table').bootstrapTable("load", users);
+            $('#table').bootstrapTable("load", ${userList});
         });
         $('#name').on('click', function () {
             alert('clicked');
             let text = document.getElementById("text_name").value;
-            let users = [];
             $.post('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function (data) {
-                alert(data)
-                for (let el in data) {
-                    data.push({id: el.index, name: el.full_name, phone: el.phone, mail: el.mail})
-                }
             });
-
-            $('#table').bootstrapTable("load", users);
+            $('#table').bootstrapTable("load", ${userList});
+        });
+        $('#surname').on('click', function () {
+            alert('clicked');
+            let text = document.getElementById("text_surname").value;
+            $.post('/search', {param: "surname", reqString: text, cutoff_frequency: 0.01}, function (data) {
+            });
+            $('#table').bootstrapTable("load", ${userList});
+        });
+        $('#patronymic').on('click', function () {
+            alert('clicked');
+            let text = document.getElementById("text_patronymic").value;
+            $.post('/search', {param: "patronymic", reqString: text, cutoff_frequency: 0.01}, function (data) {
+            });
+            $('#table').bootstrapTable("load", ${userList});
         });
 
         $('#phone').on('click', function () {
             alert('clicked');
             let text = document.getElementById("text_phone").value;
-            let users = [];
-            $.post('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function (data) {
+            $.post('/search', {param: "phone", reqString: text, cutoff_frequency: 0.01}, function (data) {
 
             });
-            $('#table').bootstrapTable("load", users);
+            $('#table').bootstrapTable("load",  ${userList});
         });
 
         $('#mail').on('click', function () {
             alert('clicked');
             let text = document.getElementById("text_mail").value;
-            let users = [];
-            $.post('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function (data) {
+            $.post('/search', {param: "mail", reqString: text, cutoff_frequency: 0.01}, function (data) {
 
             });
-            $('#table').bootstrapTable("load", users);
+            $('#table').bootstrapTable("load", ${userList});
         });
         $('#save').on('click', function () {
             alert('clicked');
             let surname = document.getElementById("surnameAdding").value;
-            alert(1);
             let name = document.getElementById("nameAdding").value;
-            alert(2);
             let patronymic = document.getElementById("patronymicAdding").value;
-            alert(3);
             let phone = document.getElementById("phoneAdding").value;
-            alert(4);
             let mail = document.getElementById("mailAdding").value;
-            alert(5);
-            let user = surname + ' ' + name + ' ' + patronymic + ';' +
+            let user = surname + ';' + name + ';' + patronymic + ';' +
                 phone + ';' + mail;
-            alert(6);
-            $.post('/save', {userString: user}, function (data) {
+            $.post('/save', {user: user}, function (data) {
                 alert(data)
             });
+            $('#table').bootstrapTable("load", ${userList});
         });
         $('button[name="mainEdit"]').on('click', function () {
             alert('clicked');
             indexOfUpdatingUser = $(this).attr('id');
+            alert($(this).data('foo-bar'));
+            let str =$(this).data('foo-bar');
+            let array = str.split(';');
+            document.getElementById("surnameUpdating").setAttribute("value", array[0]);
+            document.getElementById("nameUpdating").setAttribute("value", array[1])
+            document.getElementById("patronymicUpdating").setAttribute("value", array[2])
+            document.getElementById("phoneUpdating").setAttribute("value", array[3])
+            document.getElementById("mailUpdating").setAttribute("value", array[4])
         });
         $('button[name="edit"]').on('click', function () {
             alert('clicked');
@@ -357,20 +393,27 @@
             let patronymic = document.getElementById("patronymicUpdating").value;
             let phone = document.getElementById("phoneUpdating").value;
             let mail = document.getElementById("mailUpdating").value;
-            let user = surname + ' ' + name + ' ' + patronymic + ';' +
+            let user = surname + ';' + name + ';' + patronymic + ';' +
                 phone + ';' + mail;
             let userId = $(this).attr('id');
             $.post('/update', {id: userId, userString: user}, function (data) {
-                alert(data)
             });
+            $('#table').bootstrapTable("load", ${userList});
         });
         $('button[name="delete"]').on('click', function () {
             alert('clicked');
             alert($(this).attr('id'));
             let userId = $(this).attr('id');
             $.post('/delete', {id: userId}, function (data) {
-                alert(data)
             });
+            $('#table').bootstrapTable("load", ${userList});
+        });
+        $('button[name="sort"]').on('click', function () {
+            alert('clicked');
+            alert($(this).attr('id'));
+            $.post('/sort', {param: $(this).attr('id')}, function (data) {
+            });
+            $('#table').bootstrapTable("load", ${userList});
         });
     </script>
 </@c.page>

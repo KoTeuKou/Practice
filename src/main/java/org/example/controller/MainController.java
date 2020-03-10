@@ -33,6 +33,27 @@ public class MainController {
         return "users";
     }
 
+    @GetMapping("sort")
+    public String getUsersSortedBy(String param, Model model) throws IOException, JSONException {
+        List<User> allAccounts = userService.getAllAccounts();
+        switch (param){
+            case "surname":
+                allAccounts.sort(User.COMPARE_BY_SURNAME);
+                break;
+            case "name":
+                allAccounts.sort(User.COMPARE_BY_NAME);
+                break;
+            case "patronymic":
+                allAccounts.sort(User.COMPARE_BY_PATRONYMIC);
+                break;
+            case "id":
+                allAccounts.sort(User.COMPARE_BY_ID);
+                break;
+        }
+        model.addAttribute("userList", allAccounts);
+        return "users";
+    }
+
     @PostMapping("search")
     public String getUsersBy(String param, String reqString, double cutoff_frequency, Model model) throws IOException, JSONException {
         List<User> users = userService.getAccountsBy(param, reqString, cutoff_frequency);
@@ -42,13 +63,10 @@ public class MainController {
 
     @PostMapping("save")
     public String save(User user, Model model) throws IOException, JSONException {
-
         user.generateId();
         userService.save(user);
-
         List<User> accounts = userService.getAllAccounts();
         model.addAttribute("userList", accounts);
-
         return "users";
     }
 
@@ -56,17 +74,14 @@ public class MainController {
     public String delete(String id, Model model) throws IOException, JSONException {
         userService.remove(id);
         model.addAttribute("userList", userService.getAllAccounts());
-
         return "users";
     }
 
     @PostMapping("update")
     public String update(String id, User user, Model model) throws IOException, JSONException {
-
         user.setId(id);
         userService.save(user);
         model.addAttribute("userList", userService.getAllAccounts());
-
         return "users";
     }
 }
