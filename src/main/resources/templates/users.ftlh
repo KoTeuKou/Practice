@@ -63,7 +63,9 @@
                     <thead class="thead-dark">
                     <tr>
                         <th data-field="id" scope="col">№</th>
-                        <th data-field="name" scope="col">ФИО</th>
+                        <th data-field="surname" scope="col">Фамилия</th>
+                        <th data-field="name" scope="col">Имя</th>
+                        <th data-field="patronymic" scope="col">Отчество</th>
                         <th data-field="phone" scope="col">Телефон</th>
                         <th data-field="mail" scope="col">mail</th>
                         <th data-field="action1" scope="col">Edit</th>
@@ -73,7 +75,9 @@
                     <#list userList as user>
                         <tr>
                             <td>${user_index}</td>
-                            <td>${user.full_name}</td>
+                            <td>${user.surname}</td>
+                            <td>${user.name}</td>
+                            <td>${user.patronymic}</td>
                             <td>${user.mail}</td>
                             <td>${user.phone}</td>
                             <td>
@@ -283,12 +287,14 @@
     </style>
 
     <script>
+        connect();
+
         let indexOfUpdatingUser = 0;
         $('#table').bootstrapTable({});
         $(document).ready(function () {
             let users = [];
             for (let el in userList) {
-                alert(el)
+                alert(el);
                 users.push({id: el.index, name: el.full_name, phone: el.phone, mail: el.mail})
             }
             $('#table').bootstrapTable("load", users);
@@ -298,7 +304,7 @@
             let text = document.getElementById("text_name").value;
             let users = [];
             $.post('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function (data) {
-                alert(data)
+                alert(data);
                 for (let el in data) {
                     data.push({id: el.index, name: el.full_name, phone: el.phone, mail: el.mail})
                 }
@@ -329,18 +335,13 @@
         $('#save').on('click', function () {
             alert('clicked');
             let surname = document.getElementById("surnameAdding").value;
-            alert(1);
             let name = document.getElementById("nameAdding").value;
-            alert(2);
             let patronymic = document.getElementById("patronymicAdding").value;
-            alert(3);
             let phone = document.getElementById("phoneAdding").value;
-            alert(4);
             let mail = document.getElementById("mailAdding").value;
-            alert(5);
             let user = surname + ' ' + name + ' ' + patronymic + ';' +
                 phone + ';' + mail;
-            alert(6);
+
             $.post('/save', {userString: user}, function (data) {
                 alert(data)
             });
