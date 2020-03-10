@@ -1,5 +1,6 @@
 package org.example.domain;
 
+import java.util.Comparator;
 import java.util.UUID;
 
 public class User {
@@ -85,4 +86,29 @@ public class User {
                 ", mail='" + mail + '\'' +
                 '}';
     }
+
+    public static final Comparator<User> COMPARE_BY_NAME = new Comparator<User>() {
+        @Override
+        public int compare(User user1, User user2) {
+            return user1.getName().compareTo(user2.getName());
+        }
+    };
+    public static final Comparator<User> COMPARE_BY_SURNAME = new Comparator<User>() {
+        @Override
+        public int compare(User user1, User user2) {
+            return user1.getSurname().compareTo(user2.getSurname());
+        }
+    };
+    public static final Comparator<User> COMPARE_BY_PATRONYMIC = new Comparator<User>() {
+        @Override
+        public int compare(User user1, User user2) {
+            return user1.getPatronymic().compareTo(user2.getPatronymic());
+        }
+    };
+    public static final Comparator<User> COMPARE_BY_ID = new Comparator<User>() {
+        @Override
+        public int compare(User user1, User user2) {
+            return Integer.parseInt(user1.getId()) - Integer.parseInt(user2.getId());
+        }
+    };
 }
