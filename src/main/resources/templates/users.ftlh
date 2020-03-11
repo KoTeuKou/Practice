@@ -315,6 +315,8 @@
     </style>
 
     <script>
+        connect();
+
         let indexOfUpdatingUser = 0;
         $('#table').bootstrapTable({});
         $(document).ready(function () {

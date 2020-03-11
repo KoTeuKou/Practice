@@ -28,7 +28,7 @@ public class MainController {
 
     @GetMapping("users")
     public String get(Model model) throws IOException, JSONException {
-        List<User> allAccounts = userService.getAllAccounts();
+        List<User> allAccounts = userService.getAllAccounts().subList(0, 100);
         model.addAttribute("userList", allAccounts);
         return "users";
     }
