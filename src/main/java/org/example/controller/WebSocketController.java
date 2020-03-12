@@ -8,6 +8,9 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -21,6 +24,7 @@ public class WebSocketController {
     @MessageMapping("/autocomplete")
     @SendTo("/topic/autocomplete")
     public List<User> autocomplete(String text) throws IOException, JSONException {
-        return userService.getAccountsBy("name", text, 0.01d);
+        if (text.isEmpty()) return new ArrayList<>();
+        return userService.getAccountsByAllFields(text, 0.01d);
     }
 }
