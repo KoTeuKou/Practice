@@ -43,13 +43,13 @@ public class UserElasticRepository { //TODO: Refactoring
         return status.equals("deleted");
     }
 
-    public List<User> getAccountsBy(String param, String reqString, double cutoff_frequency) throws IOException, JSONException {
+    public List<User> getAccountsBy(String param, String reqString, double cutoffFrequency) throws IOException, JSONException {
         String query = "{\n" +
                 "    \"query\": {\n" +
                 "        \"match\": {\n \"" + param +
                 "           \": {\n" +
                 "                \"query\": \"" + reqString + "\",\n" +
-                "                \"cutoff_frequency\":" + cutoff_frequency + "\n" +
+                "                \"cutoff_frequency\":" + cutoffFrequency + "\n" +
                 "            }\n" +
                 "        }\n" +
                 "    }\n" +
@@ -67,6 +67,21 @@ public class UserElasticRepository { //TODO: Refactoring
                 "    }\n" +
                 "}";
         String response = service.sendRequest(HttpRequestType.GET, index, document, null, "_search", query);
+        return UserSerialization.fromJson(BulkToJsonParser.parse(response));
+    }
+
+    public List<User> getAccountsByAllFields(String reqString, double cutoffFrequency) throws IOException, JSONException {
+        String query = "{\n" +
+                "  \"query\": {\n" +
+                "    \"multi_match\" : {\n" +
+                "      \"query\":    \"" + reqString + "\", \n" +
+                "       \"type\":       \"phrase_prefix\"," +
+                "      \"fields\": [ \"surname\", \"name\", \"patronymic\" ] \n" +
+                "    }\n" +
+                "  }\n" +
+                "}";
+
+        String response = service.sendRequest(HttpRequestType.POST, index, document, null, "_search", query);
         return UserSerialization.fromJson(BulkToJsonParser.parse(response));
     }
 }

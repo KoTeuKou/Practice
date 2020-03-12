@@ -16,9 +16,14 @@ public class UserService {
         this.elasticRepository = elasticRepository;
     }
 
-    public List<User> getAccountsBy(String param, String reqString, double cutoff_frequency) throws IOException, JSONException {
-        return elasticRepository.getAccountsBy(param, reqString, cutoff_frequency);
+    public List<User> getAccountsBy(String param, String reqString, double cutoffFrequency) throws IOException, JSONException {
+        return elasticRepository.getAccountsBy(param, reqString, cutoffFrequency);
     }
+
+    public List<User> getAccountsByAllFields(String reqString, double cutoffFrequency) throws IOException, JSONException {
+        return elasticRepository.getAccountsByAllFields(reqString, cutoffFrequency);
+    }
+
     public List<User> getAllAccounts() throws IOException, JSONException {
         return elasticRepository.getAllAccounts();
     }

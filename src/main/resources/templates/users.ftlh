@@ -1,5 +1,5 @@
 <#import "parts/common.ftlh" as c>
-
+<#assign foundUsers = ['Lol', 'Lel', 'Kek']>
 <@c.page>
     <body>
     <div class="container">
@@ -44,8 +44,8 @@
             <div>
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
-                        <input id="text_surname" class="form-control mr-sm-2" type="text" placeholder="Поиск по фамилии"
-                               aria-label="Search">
+                        <input id="text_surname" class="form-control basicAutoComplete mr-sm-2" type="text" placeholder="Поиск по фамилии"
+                                   aria-label="Search" >
                         <button id="surname" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                     <div class="col-md-4 mb-3">
@@ -68,11 +68,16 @@
                                aria-label="Search">
                         <button id="mail" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
+                    <div class="col-md-4 mb-3">
+                        <input id="text_query" class="form-control mr-sm-2" type="text" placeholder="Поиск по любым полям"
+                               aria-label="Search">
+                        <button id="query" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                    </div>
                 </div>
                 <table class="table table-hover" id="table">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">
+                        <th data-field="id" scope="col">
                             <button class="btn btn-info" type="button" id="id" name="sort">
                                 №
                             </button>
@@ -98,7 +103,6 @@
                         <th data-field="action2" scope="col">Delete</th>
                     </tr>
                     </thead>
-
                     <#list userList as user>
                         <tr>
                             <td>${user.id}</td>
@@ -142,7 +146,7 @@
                                                         </div>
                                                         <div class="col-md-4 mb-3">
                                                             <label for="validationServer02">Отчество</label>
-                                                            <input id="PatronymicUpdating" type="text"
+                                                            <input id="patronymicUpdating" type="text"
                                                                    class="form-control" placeholder="Patronymic"
                                                                    value="" required>
                                                         </div>
@@ -184,6 +188,7 @@
                 </table>
             </div>
         </div>
+
     </div>
     </body>
     <style scoped>
@@ -312,34 +317,40 @@
         :-ms-input-placeholder {
             color: #888;
         }
+
+        .material-icons.md-14 { font-size: 14px; }
+        .dropdown-menu-scrollable {
+            height: auto;
+            max-height: 100px;
+            overflow-x: hidden;
+        }
     </style>
 
     <script>
+        connect();
         let indexOfUpdatingUser = 0;
-        $('#table').bootstrapTable({});
-        $(document).ready(function () {
-            $('#table').bootstrapTable("load", ${userList});
-        });
+       
+        $('#table').bootstrapTable("load");
         $('#name').on('click', function () {
             alert('clicked');
             let text = document.getElementById("text_name").value;
             $.post('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function (data) {
             });
-            $('#table').bootstrapTable("load", ${userList});
+            $('#table').bootstrapTable("load");
         });
         $('#surname').on('click', function () {
             alert('clicked');
             let text = document.getElementById("text_surname").value;
             $.post('/search', {param: "surname", reqString: text, cutoff_frequency: 0.01}, function (data) {
             });
-            $('#table').bootstrapTable("load", ${userList});
+            $('#table').bootstrapTable("load");
         });
         $('#patronymic').on('click', function () {
             alert('clicked');
             let text = document.getElementById("text_patronymic").value;
             $.post('/search', {param: "patronymic", reqString: text, cutoff_frequency: 0.01}, function (data) {
             });
-            $('#table').bootstrapTable("load", ${userList});
+            $('#table').bootstrapTable("load");
         });
 
         $('#phone').on('click', function () {
@@ -348,7 +359,7 @@
             $.post('/search', {param: "phone", reqString: text, cutoff_frequency: 0.01}, function (data) {
 
             });
-            $('#table').bootstrapTable("load",  ${userList});
+            $('#table').bootstrapTable("load");
         });
 
         $('#mail').on('click', function () {
@@ -357,7 +368,7 @@
             $.post('/search', {param: "mail", reqString: text, cutoff_frequency: 0.01}, function (data) {
 
             });
-            $('#table').bootstrapTable("load", ${userList});
+            $('#table').bootstrapTable("load");
         });
         $('#save').on('click', function () {
             alert('clicked');
@@ -371,7 +382,7 @@
             $.post('/save', {user: user}, function (data) {
                 alert(data)
             });
-            $('#table').bootstrapTable("load", ${userList});
+            $('#table').bootstrapTable("load");
         });
         $('button[name="mainEdit"]').on('click', function () {
             alert('clicked');
@@ -398,7 +409,7 @@
             let userId = $(this).attr('id');
             $.post('/update', {id: userId, userString: user}, function (data) {
             });
-            $('#table').bootstrapTable("load", ${userList});
+            $('#table').bootstrapTable("load");
         });
         $('button[name="delete"]').on('click', function () {
             alert('clicked');
@@ -406,14 +417,25 @@
             let userId = $(this).attr('id');
             $.post('/delete', {id: userId}, function (data) {
             });
-            $('#table').bootstrapTable("load", ${userList});
+            $('#table').bootstrapTable("load");
         });
         $('button[name="sort"]').on('click', function () {
             alert('clicked');
             alert($(this).attr('id'));
-            $.post('/sort', {param: $(this).attr('id')}, function (data) {
+            $.post('users/sort', {param: $(this).attr('id')}, function (data) {
             });
-            $('#table').bootstrapTable("load", ${userList});
+            $('#table').bootstrapTable("load");
+        });
+
+        $('#text_query').autocomplete({
+            minChars: 1, // Минимальная длина запроса для срабатывания автозаполнения
+            delimiter: /(,|;)\s*/, // Разделитель для нескольких запросов, символ или регулярное выражение
+            maxHeight: 400, // Максимальная высота списка подсказок, в пикселях
+            width: 300, // Ширина списка
+            zIndex: 9999, // z-index списка
+            deferRequestBy: 0, // Задержка запроса (мсек), на случай, если мы не хотим слать миллион запросов, пока пользователь печатает. Я обычно ставлю 300.
+            onSelect: function(data, value){ }, // Callback функция, срабатывающая на выбор одного из предложенных вариантов,
+            lookup: autocompleteArray2 // Список вариантов для локального автозаполнения
         });
     </script>
 </@c.page>
