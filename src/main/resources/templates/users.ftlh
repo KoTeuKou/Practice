@@ -1,5 +1,5 @@
 <#import "parts/common.ftlh" as c>
-<#assign foundUsers = ['Lol', 'Lel', 'Kek']>
+
 <@c.page>
     <body>
     <div class="container">
@@ -44,56 +44,56 @@
             <div>
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
-                        <input id="text_surname" class="form-control basicAutoComplete mr-sm-2" type="text" placeholder="Поиск по фамилии"
-                                   aria-label="Search" >
-                        <button id="surname" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                        <input id="surname" class="form-control basicAutoComplete mr-sm-2" type="text" placeholder="Поиск по фамилии"
+                                   aria-label="Search" name="searchField">
+                        <button id="surnameBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <input id="text_name" class="form-control mr-sm-2" type="text" placeholder="Поиск по имени"
-                               aria-label="Search">
-                        <button id="name" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                        <input id="name" class="form-control mr-sm-2" type="text" placeholder="Поиск по имени"
+                               aria-label="Search" name="searchField">
+                        <button id="nameBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <input id="text_patronymic" class="form-control mr-sm-2" type="text" placeholder="Поиск по отчеству"
-                               aria-label="Search">
-                        <button id="patronymic" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                        <input id="patronymic" class="form-control mr-sm-2" type="text" placeholder="Поиск по отчеству"
+                               aria-label="Search" name="searchField">
+                        <button id="patronymicBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <input id="text_phone" class="form-control mr-sm-2" type="tel" placeholder="Поиск по телефону"
-                               aria-label="Search">
-                        <button id="phone" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                        <input id="phone" class="form-control mr-sm-2" type="tel" placeholder="Поиск по телефону"
+                               aria-label="Search" name="searchField">
+                        <button id="phoneBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <input id="text_mail" class="form-control mr-sm-2" type="email" placeholder="Поиск по mail"
-                               aria-label="Search">
-                        <button id="mail" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                        <input id="mail" class="form-control mr-sm-2" type="email" placeholder="Поиск по mail"
+                               aria-label="Search" name="searchField">
+                        <button id="mailBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <input id="text_query" class="form-control mr-sm-2" type="text" placeholder="Поиск по любым полям"
-                               aria-label="Search">
-                        <button id="query" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                        <input id="all" class="form-control mr-sm-2" type="text" placeholder="Поиск по любым полям"
+                               aria-label="Search" name="searchField">
+                        <button id="queryBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                 </div>
                 <table class="table table-hover" id="table">
                     <thead class="thead-dark">
                     <tr>
                         <th data-field="id" scope="col">
-                            <button class="btn btn-info" type="button" id="id" name="sort">
+                            <button class="btn btn-info" type="button" id="idSort" name="sort">
                                 №
                             </button>
                         </th>
                         <th data-field="surname" scope="col">
-                            <button class="btn btn-info" type="button" id="surname" name="sort">
+                            <button class="btn btn-info" type="button" id="surnameSort" name="sort">
                                 Фамилия
                             </button>
                         </th>
                         <th data-field="name" scope="col">
-                            <button class="btn btn-info" type="button" id="name" name="sort">
+                            <button class="btn btn-info" type="button" id="nameSort" name="sort">
                                 Имя
                             </button>
                         </th>
                         <th data-field="patronymic" scope="col">
-                            <button class="btn btn-info" type="button" id="patronymic" name="sort">
+                            <button class="btn btn-info" type="button" id="patronymicSort" name="sort">
                                 Отчество
                             </button>
                         </th>
@@ -136,17 +136,17 @@
                                                     <div class="form-row">
                                                         <div class="col-md-4 mb-3">
                                                             <label for="validationServer01">Фамилия</label>
-                                                            <input id="surnameUpdating" type="text" class="form-control"
+                                                            <input name="surnameUpdating" type="text" class="form-control"
                                                                    placeholder="Surname" value="" required>
                                                         </div>
                                                         <div class="col-md-4 mb-3">
                                                             <label for="validationServer02">Имя</label>
-                                                            <input id="nameUpdating" type="text" class="form-control"
+                                                            <input name="nameUpdating" type="text" class="form-control"
                                                                    placeholder="Name" value="" required>
                                                         </div>
                                                         <div class="col-md-4 mb-3">
                                                             <label for="validationServer02">Отчество</label>
-                                                            <input id="patronymicUpdating" type="text"
+                                                            <input name="patronymicUpdating" type="text"
                                                                    class="form-control" placeholder="Patronymic"
                                                                    value="" required>
                                                         </div>
@@ -154,12 +154,12 @@
                                                     <div class="form-row">
                                                         <div class="col-4">
                                                             <label for="validationServer03">Телефон</label>
-                                                            <input id="phoneUpdating" type="tel" class="form-control"
+                                                            <input name="phoneUpdating" type="tel" class="form-control"
                                                                    placeholder="Phone" value="" required>
                                                         </div>
                                                         <div class="col-4">
                                                             <label for="validationServer04">Mail</label>
-                                                            <input id="mailUpdating" type="email" class="form-control"
+                                                            <input name="mailUpdating" type="email" class="form-control"
                                                                    placeholder="Mail" value="" required>
                                                         </div>
                                                     </div>
@@ -331,21 +331,21 @@
         let indexOfUpdatingUser = 0;
        
         $('#table').bootstrapTable("load");
-        $('#name').on('click', function () {
+        $('#nameBtn').on('click', function () {
             alert('clicked');
             let text = document.getElementById("text_name").value;
             $.post('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function (data) {
             });
             $('#table').bootstrapTable("load");
         });
-        $('#surname').on('click', function () {
+        $('#surnameBtn').on('click', function () {
             alert('clicked');
             let text = document.getElementById("text_surname").value;
             $.post('/search', {param: "surname", reqString: text, cutoff_frequency: 0.01}, function (data) {
             });
             $('#table').bootstrapTable("load");
         });
-        $('#patronymic').on('click', function () {
+        $('#patronymicBtn').on('click', function () {
             alert('clicked');
             let text = document.getElementById("text_patronymic").value;
             $.post('/search', {param: "patronymic", reqString: text, cutoff_frequency: 0.01}, function (data) {
@@ -353,7 +353,7 @@
             $('#table').bootstrapTable("load");
         });
 
-        $('#phone').on('click', function () {
+        $('#phoneBtn').on('click', function () {
             alert('clicked');
             let text = document.getElementById("text_phone").value;
             $.post('/search', {param: "phone", reqString: text, cutoff_frequency: 0.01}, function (data) {
@@ -362,7 +362,7 @@
             $('#table').bootstrapTable("load");
         });
 
-        $('#mail').on('click', function () {
+        $('#mailBtn').on('click', function () {
             alert('clicked');
             let text = document.getElementById("text_mail").value;
             $.post('/search', {param: "mail", reqString: text, cutoff_frequency: 0.01}, function (data) {
@@ -390,11 +390,11 @@
             alert($(this).data('foo-bar'));
             let str =$(this).data('foo-bar');
             let array = str.split(';');
-            document.getElementById("surnameUpdating").setAttribute("value", array[0]);
-            document.getElementById("nameUpdating").setAttribute("value", array[1])
-            document.getElementById("patronymicUpdating").setAttribute("value", array[2])
-            document.getElementById("phoneUpdating").setAttribute("value", array[3])
-            document.getElementById("mailUpdating").setAttribute("value", array[4])
+            document.getElementsByName("surnameUpdating")[0].setAttribute("value", array[0]);
+            document.getElementsByName("nameUpdating")[0].setAttribute("value", array[1]);
+            document.getElementsByName("patronymicUpdating")[0].setAttribute("value", array[2]);
+            document.getElementsByName("phoneUpdating")[0].setAttribute("value", array[3]);
+            document.getElementsByName("mailUpdating")[0].setAttribute("value", array[4]);
         });
         $('button[name="edit"]').on('click', function () {
             alert('clicked');
@@ -427,15 +427,14 @@
             $('#table').bootstrapTable("load");
         });
 
-        $('#text_query').autocomplete({
-            minChars: 1, // Минимальная длина запроса для срабатывания автозаполнения
-            delimiter: /(,|;)\s*/, // Разделитель для нескольких запросов, символ или регулярное выражение
-            maxHeight: 400, // Максимальная высота списка подсказок, в пикселях
-            width: 300, // Ширина списка
-            zIndex: 9999, // z-index списка
-            deferRequestBy: 0, // Задержка запроса (мсек), на случай, если мы не хотим слать миллион запросов, пока пользователь печатает. Я обычно ставлю 300.
-            onSelect: function(data, value){ }, // Callback функция, срабатывающая на выбор одного из предложенных вариантов,
-            lookup: autocompleteArray2 // Список вариантов для локального автозаполнения
+        $('input[name="searchField"]').autocomplete({
+            minChars: 1,
+            maxHeight: 400,
+            width: 300,
+            zIndex: 9999,
+            deferRequestBy: 0,
+            onSelect: function(data, value){ },
+            source: autocompleteArray2,
         });
     </script>
 </@c.page>

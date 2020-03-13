@@ -37,16 +37,16 @@ public class MainController {
     public String getUsersSortedBy(String param, Model model) throws IOException, JSONException {
         List<User> allAccounts = userService.getAllAccounts();
         switch (param){
-            case "surname":
+            case "surnameSort":
                 allAccounts.sort(User.COMPARE_BY_SURNAME);
                 break;
-            case "name":
+            case "nameSort":
                 allAccounts.sort(User.COMPARE_BY_NAME);
                 break;
-            case "patronymic":
+            case "patronymicSort":
                 allAccounts.sort(User.COMPARE_BY_PATRONYMIC);
                 break;
-            case "id":
+            case "idSort":
                 allAccounts.sort(User.COMPARE_BY_ID);
                 break;
         }

@@ -9,8 +9,6 @@ import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -24,7 +22,7 @@ public class WebSocketController {
     @MessageMapping("/autocomplete")
     @SendTo("/topic/autocomplete")
     public List<User> autocomplete(String text) throws IOException, JSONException {
-        if (text.isEmpty()) return new ArrayList<>();
-        return userService.getAccountsByAllFields(text, 0.01d);
+        String[] strings = text.split("`");
+        return userService.getAccountsByAllFields(strings[0], strings[1]);
     }
 }
