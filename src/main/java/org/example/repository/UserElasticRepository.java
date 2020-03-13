@@ -70,13 +70,14 @@ public class UserElasticRepository { //TODO: Refactoring
         return UserSerialization.fromJson(BulkToJsonParser.parse(response));
     }
 
-    public List<User> getAccountsByAllFields(String reqString, double cutoffFrequency) throws IOException, JSONException {
+    public List<User> getAccountsByAllFields(String param, String reqString) throws IOException, JSONException {
+        String fields = param.equals("all") ? "surname\", \"name\", \"patronymic" : param;
         String query = "{\n" +
                 "  \"query\": {\n" +
                 "    \"multi_match\" : {\n" +
                 "      \"query\":    \"" + reqString + "\", \n" +
                 "       \"type\":       \"phrase_prefix\"," +
-                "      \"fields\": [ \"surname\", \"name\", \"patronymic\" ] \n" +
+                "      \"fields\": [\"" + fields + "\"] \n" +
                 "    }\n" +
                 "  }\n" +
                 "}";

@@ -20,8 +20,8 @@ public class UserService {
         return elasticRepository.getAccountsBy(param, reqString, cutoffFrequency);
     }
 
-    public List<User> getAccountsByAllFields(String reqString, double cutoffFrequency) throws IOException, JSONException {
-        return elasticRepository.getAccountsByAllFields(reqString, cutoffFrequency);
+    public List<User> getAccountsByAllFields(String param, String reqString) throws IOException, JSONException {
+        return elasticRepository.getAccountsByAllFields(param, reqString);
     }
 
     public List<User> getAllAccounts() throws IOException, JSONException {
