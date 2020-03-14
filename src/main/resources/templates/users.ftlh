@@ -10,32 +10,32 @@
                 Добавление пользователя
             </button>
             <div class="collapse" id="collapseExample">
-                <form style="border: dimgrey 2px solid; padding: 10px; margin: 5px">
+                <form style="border: dimgrey 2px solid; padding: 10px; margin: 5px" method="post" action="/save">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <label for="validationServer01">Фамилия</label>
-                            <input id="surnameAdding" type="text" class="form-control" placeholder="Surname" value=""
+                            <input id="surname" name="surname" type="text" class="form-control" placeholder="Surname" value=""
                                    required>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="validationServer02">Имя</label>
-                            <input id="nameAdding" type="text" class="form-control" placeholder="Name" value=""
+                            <input id="name" name="name" type="text" class="form-control" placeholder="Name" value=""
                                    required>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="validationServer02">Отчество</label>
-                            <input id="patronymicAdding" type="text" class="form-control" placeholder="Patronymic"
+                            <input id="patronymic" name="patronymic" type="text" class="form-control" placeholder="Patronymic"
                                    value="" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-4">
                             <label for="validationServer03">Телефон</label>
-                            <input id="phoneAdding" type="tel" class="form-control" placeholder="Phone" required>
+                            <input id="phone" name="phone" type="tel" class="form-control" placeholder="Phone" required>
                         </div>
                         <div class="col-4">
                             <label for="validationServer04">Mail</label>
-                            <input id="mailAdding" type="email" class="form-control" placeholder="Mail" required>
+                            <input id="mail" name="mail" type="email" class="form-control" placeholder="Mail" required>
                         </div>
                     </div>
                     <button id="save" class="btn btn-primary" type="submit">Добавить</button>
@@ -44,9 +44,9 @@
             <div>
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
-                        <input id="surname" class="form-control basicAutoComplete mr-sm-2" type="text" placeholder="Поиск по фамилии"
+                            <input id="surname" class="form-control basicAutoComplete mr-sm-2" type="text" placeholder="Поиск по фамилии"
                                    aria-label="Search" name="searchField">
-                        <button id="surnameBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                            <button id="surnameBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
                     </div>
                     <div class="col-md-4 mb-3">
                         <input id="name" class="form-control mr-sm-2" type="text" placeholder="Поиск по имени"
@@ -368,22 +368,22 @@
             $.post('/search', {param: "mail", reqString: text, cutoff_frequency: 0.01}, function (data) {
 
             });
-            $('#table').bootstrapTable("load");
+            // $('#table').bootstrapTable("load");
         });
-        $('#save').on('click', function () {
-            alert('clicked');
-            let surname = document.getElementById("surnameAdding").value;
-            let name = document.getElementById("nameAdding").value;
-            let patronymic = document.getElementById("patronymicAdding").value;
-            let phone = document.getElementById("phoneAdding").value;
-            let mail = document.getElementById("mailAdding").value;
-            let user = surname + ';' + name + ';' + patronymic + ';' +
-                phone + ';' + mail;
-            $.post('/save', {user: user}, function (data) {
-                alert(data)
-            });
-            $('#table').bootstrapTable("load");
-        });
+        // $('#save').on('click', function () {
+        //     alert('clicked');
+        //     let surname = document.getElementById("surnameAdding").value;
+        //     let name = document.getElementById("nameAdding").value;
+        //     let patronymic = document.getElementById("patronymicAdding").value;
+        //     let phone = document.getElementById("phoneAdding").value;
+        //     let mail = document.getElementById("mailAdding").value;
+        //     let user = surname + ';' + name + ';' + patronymic + ';' +
+        //         phone + ';' + mail;
+        //     $.post('/save', {user: user}, function (data) {
+        //         alert(data)
+        //     });
+        //     $('#table').bootstrapTable("load");
+        // });
         $('button[name="mainEdit"]').on('click', function () {
             alert('clicked');
             indexOfUpdatingUser = $(this).attr('id');

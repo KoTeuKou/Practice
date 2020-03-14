@@ -28,8 +28,8 @@ public class MainController {
 
     @GetMapping("users")
     public String get(Model model) throws IOException, JSONException {
-        List<User> allAccounts = userService.getAllAccounts().subList(0, 100);
-        model.addAttribute("userList", allAccounts);
+        List<User> allAccounts = userService.getAllAccounts();
+        model.addAttribute("userList", allAccounts.subList(200, allAccounts.size()));
         return "users";
     }
 
@@ -66,8 +66,9 @@ public class MainController {
         user.generateId();
         userService.save(user);
         List<User> accounts = userService.getAllAccounts();
+        accounts.add(user);
         model.addAttribute("userList", accounts);
-        return "users";
+        return "redirect:/users";
     }
 
     @PostMapping("delete")

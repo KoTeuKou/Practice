@@ -29,6 +29,7 @@ public class UserService {
     }
 
     public User save(User user) throws IOException {
+        System.out.println("save");
         return elasticRepository.save(user);
     }
 
