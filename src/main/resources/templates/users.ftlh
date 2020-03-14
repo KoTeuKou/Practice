@@ -14,28 +14,30 @@
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <label for="validationServer01">Фамилия</label>
-                            <input id="surname" name="surname" type="text" class="form-control" placeholder="Surname" value=""
+                            <input id="surnameA" name="surname" type="text" class="form-control" placeholder="Surname"
+                                   value=""
                                    required>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="validationServer02">Имя</label>
-                            <input id="name" name="name" type="text" class="form-control" placeholder="Name" value=""
+                            <input id="nameA" name="name" type="text" class="form-control" placeholder="Name" value=""
                                    required>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="validationServer02">Отчество</label>
-                            <input id="patronymic" name="patronymic" type="text" class="form-control" placeholder="Patronymic"
+                            <input id="patronymicA" name="patronymic" type="text" class="form-control"
+                                   placeholder="Patronymic"
                                    value="" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-4">
                             <label for="validationServer03">Телефон</label>
-                            <input id="phone" name="phone" type="tel" class="form-control" placeholder="Phone" required>
+                            <input id="phoneA" name="phone" type="tel" class="form-control" placeholder="Phone" required>
                         </div>
                         <div class="col-4">
                             <label for="validationServer04">Mail</label>
-                            <input id="mail" name="mail" type="email" class="form-control" placeholder="Mail" required>
+                            <input id="mailA" name="mail" type="email" class="form-control" placeholder="Mail" required>
                         </div>
                     </div>
                     <button id="save" class="btn btn-primary" type="submit">Добавить</button>
@@ -44,9 +46,11 @@
             <div>
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
-                            <input id="surname" class="form-control basicAutoComplete mr-sm-2" type="text" placeholder="Поиск по фамилии"
-                                   aria-label="Search" name="searchField">
-                            <button id="surnameBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                        <input id="surname" class="form-control basicAutoComplete mr-sm-2" type="text"
+                               placeholder="Поиск по фамилии"
+                               aria-label="Search" name="searchField">
+                        <button id="surnameBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск
+                        </button>
                     </div>
                     <div class="col-md-4 mb-3">
                         <input id="name" class="form-control mr-sm-2" type="text" placeholder="Поиск по имени"
@@ -56,7 +60,8 @@
                     <div class="col-md-4 mb-3">
                         <input id="patronymic" class="form-control mr-sm-2" type="text" placeholder="Поиск по отчеству"
                                aria-label="Search" name="searchField">
-                        <button id="patronymicBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                        <button id="patronymicBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск
+                        </button>
                     </div>
                     <div class="col-md-4 mb-3">
                         <input id="phone" class="form-control mr-sm-2" type="tel" placeholder="Поиск по телефону"
@@ -77,25 +82,29 @@
                 <table class="table table-hover" id="table">
                     <thead class="thead-dark">
                     <tr>
-                        <th data-field="id" scope="col">
-                            <button class="btn btn-info" type="button" id="idSort" name="sort">
-                                №
-                            </button>
-                        </th>
                         <th data-field="surname" scope="col">
-                            <button class="btn btn-info" type="button" id="surnameSort" name="sort">
-                                Фамилия
-                            </button>
+                            <form method="get" action="/users">
+                                <input name="param" hidden value="surname">
+                                <button class="btn btn-info" type="submit" id="surnameSort">
+                                    Фамилия
+                                </button>
+                            </form>
                         </th>
                         <th data-field="name" scope="col">
-                            <button class="btn btn-info" type="button" id="nameSort" name="sort">
-                                Имя
-                            </button>
+                            <form method="get" action="/users">
+                                <input name="param" hidden value="name">
+                                <button class="btn btn-info" type="submit" id="nameSort">
+                                    Имя
+                                </button>
+                            </form>
                         </th>
                         <th data-field="patronymic" scope="col">
-                            <button class="btn btn-info" type="button" id="patronymicSort" name="sort">
-                                Отчество
-                            </button>
+                            <form method="get" action="/users">
+                                <input name="param" hidden value="patronymic">
+                                <button class="btn btn-info" type="submit" id="patronymicSort">
+                                    Отчество
+                                </button>
+                            </form>
                         </th>
                         <th data-field="phone" scope="col">Телефон</th>
                         <th data-field="mail" scope="col">mail</th>
@@ -105,7 +114,6 @@
                     </thead>
                     <#list userList as user>
                         <tr>
-                            <td>${user.id}</td>
                             <td>${user.surname}</td>
                             <td>${user.name}</td>
                             <td>${user.patronymic}</td>
@@ -113,12 +121,12 @@
                             <td>${user.mail}</td>
                             <td>
                                 <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="${user.id}"
-                                        name="mainEdit" data-foo-bar="${user.surname};${user.name};${user.patronymic};${user.mail};${user.phone}"
+                                        name="mainEdit"
                                         data-toggle="modal"
-                                        data-target="#modalCenter">
+                                        data-target="#modalCenter${user.id}">
                                     Edit
                                 </button>
-                                <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog"
+                                <div class="modal fade" id="modalCenter${user.id}" tabindex="-1" role="dialog"
                                      aria-labelledby="modalCenterTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document"
                                          style="max-width: 1000px">
@@ -131,36 +139,40 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
-                                                <form style="border: dimgrey 2px solid; padding: 10px; margin: 5px">
+                                            <form action="/update" method="post"
+                                                  style="border: dimgrey 2px solid; padding: 10px; margin: 5px">
+                                                <div class="modal-body">
+
                                                     <div class="form-row">
+                                                        <input hidden name="id" value="${user.id}">
                                                         <div class="col-md-4 mb-3">
                                                             <label for="validationServer01">Фамилия</label>
-                                                            <input name="surnameUpdating" type="text" class="form-control"
-                                                                   placeholder="Surname" value="" required>
+                                                            <input name="surname" type="text" class="form-control"
+                                                                   placeholder="Surname" value="${user.surname}"
+                                                                   required>
                                                         </div>
                                                         <div class="col-md-4 mb-3">
                                                             <label for="validationServer02">Имя</label>
-                                                            <input name="nameUpdating" type="text" class="form-control"
-                                                                   placeholder="Name" value="" required>
+                                                            <input name="name" type="text" class="form-control"
+                                                                   placeholder="Name" value="${user.name}" required>
                                                         </div>
                                                         <div class="col-md-4 mb-3">
                                                             <label for="validationServer02">Отчество</label>
-                                                            <input name="patronymicUpdating" type="text"
+                                                            <input name="patronymic" type="text"
                                                                    class="form-control" placeholder="Patronymic"
-                                                                   value="" required>
+                                                                   value="${user.patronymic}" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="col-4">
                                                             <label for="validationServer03">Телефон</label>
-                                                            <input name="phoneUpdating" type="tel" class="form-control"
-                                                                   placeholder="Phone" value="" required>
+                                                            <input name="phone" type="tel" class="form-control"
+                                                                   placeholder="Phone" value="${user.phone}" required>
                                                         </div>
                                                         <div class="col-4">
                                                             <label for="validationServer04">Mail</label>
-                                                            <input name="mailUpdating" type="email" class="form-control"
-                                                                   placeholder="Mail" value="" required>
+                                                            <input name="mail" type="email" class="form-control"
+                                                                   placeholder="Mail" value="${user.mail}" required>
                                                         </div>
                                                     </div>
 
@@ -168,12 +180,14 @@
                                                         <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Отменить
                                                         </button>
-                                                        <button type="submit" class="btn btn-primary" name="edit">
+                                                        <button id="${user.id}" type="submit" class="btn btn-primary"
+                                                                name="edit">
                                                             Обновить данные
                                                         </button>
                                                     </div>
-                                                </form>
-                                            </div>
+
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -318,7 +332,10 @@
             color: #888;
         }
 
-        .material-icons.md-14 { font-size: 14px; }
+        .material-icons.md-14 {
+            font-size: 14px;
+        }
+
         .dropdown-menu-scrollable {
             height: auto;
             max-height: 100px;
@@ -329,28 +346,27 @@
     <script>
         connect();
         let indexOfUpdatingUser = 0;
-       
-        $('#table').bootstrapTable("load");
+
+
         $('#nameBtn').on('click', function () {
             alert('clicked');
             let text = document.getElementById("text_name").value;
             $.post('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function (data) {
             });
-            $('#table').bootstrapTable("load");
         });
         $('#surnameBtn').on('click', function () {
             alert('clicked');
             let text = document.getElementById("text_surname").value;
             $.post('/search', {param: "surname", reqString: text, cutoff_frequency: 0.01}, function (data) {
             });
-            $('#table').bootstrapTable("load");
+
         });
         $('#patronymicBtn').on('click', function () {
             alert('clicked');
             let text = document.getElementById("text_patronymic").value;
             $.post('/search', {param: "patronymic", reqString: text, cutoff_frequency: 0.01}, function (data) {
             });
-            $('#table').bootstrapTable("load");
+
         });
 
         $('#phoneBtn').on('click', function () {
@@ -359,7 +375,7 @@
             $.post('/search', {param: "phone", reqString: text, cutoff_frequency: 0.01}, function (data) {
 
             });
-            $('#table').bootstrapTable("load");
+
         });
 
         $('#mailBtn').on('click', function () {
@@ -368,48 +384,7 @@
             $.post('/search', {param: "mail", reqString: text, cutoff_frequency: 0.01}, function (data) {
 
             });
-            // $('#table').bootstrapTable("load");
-        });
-        // $('#save').on('click', function () {
-        //     alert('clicked');
-        //     let surname = document.getElementById("surnameAdding").value;
-        //     let name = document.getElementById("nameAdding").value;
-        //     let patronymic = document.getElementById("patronymicAdding").value;
-        //     let phone = document.getElementById("phoneAdding").value;
-        //     let mail = document.getElementById("mailAdding").value;
-        //     let user = surname + ';' + name + ';' + patronymic + ';' +
-        //         phone + ';' + mail;
-        //     $.post('/save', {user: user}, function (data) {
-        //         alert(data)
-        //     });
-        //     $('#table').bootstrapTable("load");
-        // });
-        $('button[name="mainEdit"]').on('click', function () {
-            alert('clicked');
-            indexOfUpdatingUser = $(this).attr('id');
-            alert($(this).data('foo-bar'));
-            let str =$(this).data('foo-bar');
-            let array = str.split(';');
-            document.getElementsByName("surnameUpdating")[0].setAttribute("value", array[0]);
-            document.getElementsByName("nameUpdating")[0].setAttribute("value", array[1]);
-            document.getElementsByName("patronymicUpdating")[0].setAttribute("value", array[2]);
-            document.getElementsByName("phoneUpdating")[0].setAttribute("value", array[3]);
-            document.getElementsByName("mailUpdating")[0].setAttribute("value", array[4]);
-        });
-        $('button[name="edit"]').on('click', function () {
-            alert('clicked');
-            alert(indexOfUpdatingUser);
-            let surname = document.getElementById("surnameUpdating").value;
-            let name = document.getElementById("nameUpdating").value;
-            let patronymic = document.getElementById("patronymicUpdating").value;
-            let phone = document.getElementById("phoneUpdating").value;
-            let mail = document.getElementById("mailUpdating").value;
-            let user = surname + ';' + name + ';' + patronymic + ';' +
-                phone + ';' + mail;
-            let userId = $(this).attr('id');
-            $.post('/update', {id: userId, userString: user}, function (data) {
-            });
-            $('#table').bootstrapTable("load");
+            // 
         });
         $('button[name="delete"]').on('click', function () {
             alert('clicked');
@@ -417,14 +392,7 @@
             let userId = $(this).attr('id');
             $.post('/delete', {id: userId}, function (data) {
             });
-            $('#table').bootstrapTable("load");
-        });
-        $('button[name="sort"]').on('click', function () {
-            alert('clicked');
-            alert($(this).attr('id'));
-            $.post('users/sort', {param: $(this).attr('id')}, function (data) {
-            });
-            $('#table').bootstrapTable("load");
+
         });
 
         $('input[name="searchField"]').autocomplete({
@@ -433,7 +401,8 @@
             width: 300,
             zIndex: 9999,
             deferRequestBy: 0,
-            onSelect: function(data, value){ },
+            onSelect: function (data, value) {
+            },
             source: autocompleteArray2,
         });
     </script>
