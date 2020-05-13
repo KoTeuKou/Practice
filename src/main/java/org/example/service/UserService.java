@@ -1,39 +1,38 @@
 package org.example.service;
 
 import org.example.domain.User;
-import org.example.repository.UserElasticRepository;
-import org.json.JSONException;
+import org.example.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
 public class UserService {
-    private final UserElasticRepository elasticRepository;
+    private UserRepository userRepository;
 
-    public UserService(UserElasticRepository elasticRepository) {
-        this.elasticRepository = elasticRepository;
+    @Autowired
+    public UserService(UserRepository elasticRepository) {
+        this.userRepository = elasticRepository;
     }
 
-    public List<User> getAccountsBy(String param, String reqString, double cutoffFrequency) throws IOException, JSONException {
-        return elasticRepository.getAccountsBy(param, reqString, cutoffFrequency);
+    public List<User> getAccountsBy(String param, String reqString, double cutoffFrequency) {
+        return userRepository.getAccountsBy(param, reqString, cutoffFrequency);
     }
 
-    public List<User> getAccountsByAllFields(String param, String reqString) throws IOException, JSONException {
-        return elasticRepository.getAccountsByAllFields(param, reqString);
+    public List<User> getAccountsByAllFields(String param, String reqString) {
+        return userRepository.getAccountsByAllFields(param, reqString);
     }
 
-    public List<User> getAllAccounts() throws IOException, JSONException {
-        return elasticRepository.getAllAccounts();
+    public List<User> getAllAccounts() {
+        return userRepository.getAllAccounts();
     }
 
-    public User save(User user) throws IOException {
-        System.out.println("save");
-        return elasticRepository.save(user);
+    public User save(User user) {
+        return userRepository.save(user);
     }
 
-    public boolean remove(String id) throws IOException {
-        return elasticRepository.remove(id);
+    public boolean remove(String id) {
+        return userRepository.remove(id);
     }
 }
