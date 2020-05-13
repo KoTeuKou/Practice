@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class MainController {
 
     @GetMapping("users")
     public String get(@RequestParam(required = false) String param, Model model)  {
-        List<User> allAccounts = userService.getAllAccounts();
+        List<User> allAccounts = new ArrayList<>(userService.getAllAccounts());
         if (param != null){
             switch (param){
                 case "surname":
