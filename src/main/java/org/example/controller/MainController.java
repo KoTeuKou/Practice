@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -28,18 +29,18 @@ public class MainController {
     }
 
     @GetMapping("users")
-    public String get(@RequestParam(required = false) String param, Model model) throws IOException, JSONException {
+    public String get(@RequestParam(required = false) String param, Model model)  {
         List<User> allAccounts = userService.getAllAccounts();
         if (param != null){
             switch (param){
                 case "surname":
-                    allAccounts.sort(User.COMPARE_BY_SURNAME);
+                    allAccounts.sort(Comparator.comparing(User::getSurname));
                     break;
                 case "name":
-                    allAccounts.sort(User.COMPARE_BY_NAME);
+                    allAccounts.sort(Comparator.comparing(User::getName));
                     break;
                 case "patronymic":
-                    allAccounts.sort(User.COMPARE_BY_PATRONYMIC);
+                    allAccounts.sort(Comparator.comparing(User::getPatronymic));
                     break;
                 default:
                     System.out.println("WTF???");
@@ -68,14 +69,14 @@ public class MainController {
     }
 
     @PostMapping("delete")
-    public String delete(String id, Model model) throws IOException, JSONException {
+    public String delete(String id, Model model) {
         userService.remove(id);
         model.addAttribute("userList", userService.getAllAccounts());
         return "redirect:/users";
     }
 
     @PostMapping("update")
-    public String update(User user, Model model) throws IOException, JSONException {
+    public String update(User user, Model model)  {
         userService.save(user);
         model.addAttribute("userList", userService.getAllAccounts());
         return "redirect:/users";

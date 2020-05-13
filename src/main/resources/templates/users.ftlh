@@ -4,27 +4,27 @@
     <body>
     <div class="container">
         <div id="search">
-            <h3>Ну шо, elasticsearch?</h3>
+            <h3>Users</h3>
             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
                     aria-expanded="false" aria-controls="collapseExample">
-                Добавление пользователя
+                Add user
             </button>
             <div class="collapse" id="collapseExample">
                 <form style="border: dimgrey 2px solid; padding: 10px; margin: 5px" method="post" action="/save">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label for="validationServer01">Фамилия</label>
+                            <label for="validationServer01">Surname</label>
                             <input id="surnameA" name="surname" type="text" class="form-control" placeholder="Surname"
                                    value=""
                                    required>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="validationServer02">Имя</label>
+                            <label for="validationServer02">Name</label>
                             <input id="nameA" name="name" type="text" class="form-control" placeholder="Name" value=""
                                    required>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="validationServer02">Отчество</label>
+                            <label for="validationServer02">Patronymic</label>
                             <input id="patronymicA" name="patronymic" type="text" class="form-control"
                                    placeholder="Patronymic"
                                    value="" required>
@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-4">
-                            <label for="validationServer03">Телефон</label>
+                            <label for="validationServer03">PhoneNum</label>
                             <input id="phoneA" name="phone" type="tel" class="form-control" placeholder="Phone" required>
                         </div>
                         <div class="col-4">
@@ -40,43 +40,53 @@
                             <input id="mailA" name="mail" type="email" class="form-control" placeholder="Mail" required>
                         </div>
                     </div>
-                    <button id="save" class="btn btn-primary" type="submit">Добавить</button>
+                    <button id="save" class="btn btn-primary" type="submit">Add</button>
                 </form>
             </div>
             <div>
+
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
-                        <input id="surname" class="form-control basicAutoComplete mr-sm-2" type="text"
-                               placeholder="Поиск по фамилии"
-                               aria-label="Search" name="searchField">
-                        <button id="surnameBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск
-                        </button>
+                        <form class="form-inline">
+                            <input id="surname" class="form-control mr-sm-2" type="text"
+                                   placeholder="Search by surname"  aria-label="Search" name="searchField">
+                            <button id="surnameBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <input id="name" class="form-control mr-sm-2" type="text" placeholder="Поиск по имени"
+                        <form class="form-inline">
+                        <input id="name" class="form-control mr-sm-2" type="text" placeholder="Search by name"
                                aria-label="Search" name="searchField">
-                        <button id="nameBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                        <button id="nameBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <input id="patronymic" class="form-control mr-sm-2" type="text" placeholder="Поиск по отчеству"
+                        <form class="form-inline">
+                        <input id="patronymic" class="form-control mr-sm-2" type="text" placeholder="Search by patronymic"
                                aria-label="Search" name="searchField">
-                        <button id="patronymicBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск
-                        </button>
+                        <button id="patronymicBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <input id="phone" class="form-control mr-sm-2" type="tel" placeholder="Поиск по телефону"
+                        <form class="form-inline">
+                        <input id="phone" class="form-control mr-sm-2" type="tel" placeholder="Search by phoneNum"
                                aria-label="Search" name="searchField">
-                        <button id="phoneBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                        <button id="phoneBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <input id="mail" class="form-control mr-sm-2" type="email" placeholder="Поиск по mail"
+                        <form class="form-inline">
+                        <input id="mail" class="form-control mr-sm-2" type="email" placeholder="Search by mail"
                                aria-label="Search" name="searchField">
-                        <button id="mailBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                        <button id="mailBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <input id="all" class="form-control mr-sm-2" type="text" placeholder="Поиск по любым полям"
+                        <form class="form-inline">
+                        <input id="all" class="form-control mr-sm-2" type="text" placeholder="Search by any field"
                                aria-label="Search" name="searchField">
-                        <button id="queryBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                        <button id="queryBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
                     </div>
                 </div>
                 <table class="table table-hover" id="table">
@@ -86,7 +96,7 @@
                             <form method="get" action="/users">
                                 <input name="param" hidden value="surname">
                                 <button class="btn btn-info" type="submit" id="surnameSort">
-                                    Фамилия
+                                    Surname
                                 </button>
                             </form>
                         </th>
@@ -94,7 +104,7 @@
                             <form method="get" action="/users">
                                 <input name="param" hidden value="name">
                                 <button class="btn btn-info" type="submit" id="nameSort">
-                                    Имя
+                                    Name
                                 </button>
                             </form>
                         </th>
@@ -102,14 +112,14 @@
                             <form method="get" action="/users">
                                 <input name="param" hidden value="patronymic">
                                 <button class="btn btn-info" type="submit" id="patronymicSort">
-                                    Отчество
+                                    Patronymic
                                 </button>
                             </form>
                         </th>
-                        <th data-field="phone" scope="col">Телефон</th>
-                        <th data-field="mail" scope="col">mail</th>
-                        <th data-field="action1" scope="col">Edit</th>
-                        <th data-field="action2" scope="col">Delete</th>
+                        <th data-field="phone" scope="col">PhoneNum</th>
+                        <th data-field="mail" scope="col">Mail</th>
+                        <th data-field="action1" scope="col"></th>
+                        <th data-field="action2" scope="col"></th>
                     </tr>
                     </thead>
                     <#list userList as user>
@@ -132,8 +142,7 @@
                                          style="max-width: 1000px">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalCenterTitle">Редактирование
-                                                    пользователя</h5>
+                                                <h5 class="modal-title" id="modalCenterTitle">Edit user</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -146,18 +155,18 @@
                                                     <div class="form-row">
                                                         <input hidden name="id" value="${user.id}">
                                                         <div class="col-md-4 mb-3">
-                                                            <label for="validationServer01">Фамилия</label>
+                                                            <label for="validationServer01">Surname</label>
                                                             <input name="surname" type="text" class="form-control"
                                                                    placeholder="Surname" value="${user.surname}"
                                                                    required>
                                                         </div>
                                                         <div class="col-md-4 mb-3">
-                                                            <label for="validationServer02">Имя</label>
+                                                            <label for="validationServer02">Name</label>
                                                             <input name="name" type="text" class="form-control"
                                                                    placeholder="Name" value="${user.name}" required>
                                                         </div>
                                                         <div class="col-md-4 mb-3">
-                                                            <label for="validationServer02">Отчество</label>
+                                                            <label for="validationServer02">Patronymic</label>
                                                             <input name="patronymic" type="text"
                                                                    class="form-control" placeholder="Patronymic"
                                                                    value="${user.patronymic}" required>
@@ -165,7 +174,7 @@
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="col-4">
-                                                            <label for="validationServer03">Телефон</label>
+                                                            <label for="validationServer03">PhoneNum</label>
                                                             <input name="phone" type="tel" class="form-control"
                                                                    placeholder="Phone" value="${user.phone}" required>
                                                         </div>
@@ -178,11 +187,11 @@
 
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Отменить
+                                                                data-dismiss="modal">Cancel
                                                         </button>
                                                         <button id="${user.id}" type="submit" class="btn btn-primary"
                                                                 name="edit">
-                                                            Обновить данные
+                                                            Update user
                                                         </button>
                                                     </div>
 
@@ -227,7 +236,7 @@
             font-size: 14px;
             line-height: 50px;
             color: #777;
-            background: url("https://www.tokkoro.com/picsup/2941209-nyan-cat-simple-simple-background-minimalism-sky___landscape-nature-wallpapers.jpg");
+            background: url("http://atkufa.ru/uploads/wallpapers/47118-atsume-neko-wallpaper.jpg");
         }
 
         .container {
@@ -242,8 +251,8 @@
         #search input[type="tel"],
         #search textarea,
         #search button[type="submit"] {
-            max-width: 300px;
-            min-width: 200px;
+            max-width: 200px;
+            min-width: 100px;
             font: 400 12px/16px "Roboto", Helvetica, Arial, sans-serif;
         }
 
@@ -288,27 +297,6 @@
             resize: none;
         }
 
-        #search button[type="submit"] {
-            cursor: pointer;
-            width: 100%;
-            border: none;
-            background: #4CAF50;
-            color: #FFF;
-            margin: 0 0 5px;
-            padding: 10px;
-            font-size: 15px;
-        }
-
-        #search button[type="submit"]:hover {
-            background: #43A047;
-            -webkit-transition: background 0.3s ease-in-out;
-            -moz-transition: background 0.3s ease-in-out;
-            transition: background-color 0.3s ease-in-out;
-        }
-
-        #search button[type="submit"]:active {
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
-        }
 
         #search input:focus,
         #search textarea:focus {
@@ -332,15 +320,6 @@
             color: #888;
         }
 
-        .material-icons.md-14 {
-            font-size: 14px;
-        }
-
-        .dropdown-menu-scrollable {
-            height: auto;
-            max-height: 100px;
-            overflow-x: hidden;
-        }
     </style>
 
     <script>

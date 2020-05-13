@@ -2,9 +2,8 @@
 
 <@c.page>
     <body>
-    <div style="background: #FFFFFF; max-width: 500px">
-        <h4>Шо ты тут забыл?</h4>
-        <img src="https://im0-tub-ru.yandex.net/i?id=119b6282e90932071f33649a580e06e3&n=13">
+    <div style="max-width: 500px;">
+        <img src="https://www.clipartmax.com/png/full/231-2317477_facebook-clip-art.png" style="width: 200%" alt=""/>
     </div>
     </body>
     <style scoped>
@@ -28,7 +27,7 @@
             font-size: 14px;
             line-height: 50px;
             color: #777;
-            background: url("https://www.tokkoro.com/picsup/2941209-nyan-cat-simple-simple-background-minimalism-sky___landscape-nature-wallpapers.jpg");
+            background: url("http://atkufa.ru/uploads/wallpapers/47118-atsume-neko-wallpaper.jpg");
         }
     </style>
 </@c.page>
