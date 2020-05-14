@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -56,10 +57,17 @@ public class MainController {
     }
 
     @PostMapping("search")
-    public String getUsersBy(String param, String searchField, double cutoff_frequency, Model model) {
-        allAccounts = new ArrayList<>(userService.getAccountsBy(param, searchField, cutoff_frequency));
+    public String getUsersBy(String surnameSearchField, String nameSearchField, String patronymicSearchField,
+                             String phoneSearchField, String mailSearchField, Model model) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("SURNAME", surnameSearchField);
+        params.put("NAME", nameSearchField);
+        params.put("PATRONYMIC", patronymicSearchField);
+        params.put("PHONE", phoneSearchField);
+        params.put("MAIL", mailSearchField);
+        allAccounts = new ArrayList<>(userService.getAccountsBy(params));
         model.addAttribute("userList", allAccounts);
-        return "redirect:/users";
+        return "users";
     }
 
     @PostMapping("save")
@@ -68,7 +76,7 @@ public class MainController {
         userService.save(user);
         allAccounts.add(user);
         model.addAttribute("userList", allAccounts);
-        return "redirect:/users";
+        return "users";
     }
 
     @PostMapping("delete")
@@ -77,7 +85,7 @@ public class MainController {
         User reqUser = allAccounts.stream().filter(x -> x.getId().equals(id)).findFirst().get();
         allAccounts.remove(reqUser);
         model.addAttribute("userList", allAccounts);
-        return "redirect:/users";
+        return "users";
     }
 
     @PostMapping("update")
@@ -87,6 +95,6 @@ public class MainController {
         int index = allAccounts.indexOf(reqUser);
         allAccounts.set(index, user);
         model.addAttribute("userList", allAccounts);
-        return "redirect:/users";
+        return "users";
     }
 }

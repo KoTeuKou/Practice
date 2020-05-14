@@ -5,6 +5,7 @@ import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -16,8 +17,8 @@ public class UserService {
         this.userRepository = elasticRepository;
     }
 
-    public List<User> getAccountsBy(String param, String reqString, double cutoffFrequency) {
-        return userRepository.getAccountsBy(param, reqString);
+    public List<User> getAccountsBy(HashMap<String, String> params) {
+        return userRepository.getAccountsBy(params);
     }
 
     public List<User> getAllAccounts() {
