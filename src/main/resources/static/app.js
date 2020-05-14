@@ -13,38 +13,33 @@ function connect() {
             console.log(requestParam);
             $.each(autocompleteArray, function(i, item) {
                 switch (requestParam) {
-                    case "all":
-                        autocompleteArray2.push({
-                            value: item.surname + ' ' + item.name + ' ' + item.patronymic, data: item.id
-                        });
-                        break;
-                    case "surname":
+                    case "SURNAME":
                         autocompleteArray2.push({
                             value: item.surname, data: item.id
                         });
                         break;
-                    case "name":
+                    case "NAME":
                         autocompleteArray2.push({
                             value: item.name, data: item.id
                         });
                         break;
-                    case "patronymic":
+                    case "PATRONYMIC":
                         autocompleteArray2.push({
                             value: item.patronymic, data: item.id
                         });
                         break;
-                    case "mail":
+                    case "MAIL":
                         autocompleteArray2.push({
                             value: item.mail, data: item.id
                         });
                         break;
-                    case "phone":
+                    case "PHONE":
                         autocompleteArray2.push({
                             value: item.phone, data: item.id
                         });
                         break;
                 }
-
+                // autocompleteArray2 = [...new Set(autocompleteArray2)]
             });
             console.log(autocompleteArray2)
         });
@@ -59,8 +54,8 @@ function disconnect() {
     console.log("Disconnected");
 }
 
-$(function () {  // Find by name input field, look for info in console
-    $('input[name="searchField"]').on('input', function () {
+$(function () {
+    $('input[name*="SearchField"]').on('input', function () {
         let id = $(this).attr('id');
         let text = $('#' + id).val();
         if (text === "") return;

@@ -8,6 +8,7 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static org.elasticsearch.index.query.QueryBuilders.matchAllQuery;
@@ -50,12 +51,11 @@ public class UserRepository {
                 .withQuery(matchAllQuery()).build(), User.class);
     }
 
-    public List<User> getAccountsBy(String param, String reqString) {
-        if (param.equals("all"))
-            return elasticsearchTemplate.queryForList(new CriteriaQuery(
-                        new Criteria("name").contains(reqString).or("surname").contains(reqString)
-                                .or("patronymic").contains(reqString).or("phone").contains(reqString)
-                                .or("mail").contains(reqString)), User.class);
-        else return elasticsearchTemplate.queryForList(new CriteriaQuery(new Criteria(param).contains(reqString)), User.class);
+    public List<User> getAccountsBy(HashMap<String, String> params) {
+        return elasticsearchTemplate.queryForList(new CriteriaQuery(
+                new Criteria("name").startsWith(params.get("NAME")).and("surname").startsWith(params.get("SURNAME"))
+                        .and("patronymic").startsWith(params.get("PATRONYMIC")).and("phone").startsWith(params.get("PHONE"))
+                        .and("mail").startsWith(params.get("MAIL"))), User.class);
     }
+
 }
