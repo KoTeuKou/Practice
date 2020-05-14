@@ -47,45 +47,57 @@
 
                 <div class="form-row">
                     <div class="col-md-4 mb-3">
-                        <form class="form-inline">
+                        <form class="form-inline" action="/search">
+                            <input name="param" hidden value="surname">
+                            <input name="cutoff_frequency" hidden value="0.1">
                             <input id="surname" class="form-control mr-sm-2" type="text"
                                    placeholder="Search by surname"  aria-label="Search" name="searchField">
-                            <button id="surnameBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            <button id="surnameBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit" formmethod="post">Search</button>
                         </form>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <form class="form-inline">
-                        <input id="name" class="form-control mr-sm-2" type="text" placeholder="Search by name"
+                        <form class="form-inline" action="/search">
+                            <input name="param" hidden value="name">
+                            <input name="cutoff_frequency" hidden value="0.1">
+                            <input id="name" class="form-control mr-sm-2" type="text" placeholder="Search by name"
                                aria-label="Search" name="searchField">
-                        <button id="nameBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            <button id="nameBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit" formmethod="post">Search</button>
                         </form>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <form class="form-inline">
-                        <input id="patronymic" class="form-control mr-sm-2" type="text" placeholder="Search by patronymic"
+                        <form class="form-inline" action="/search">
+                            <input name="param" hidden value="patronymic">
+                            <input name="cutoff_frequency" hidden value="0.1">
+                            <input id="patronymic" class="form-control mr-sm-2" type="text" placeholder="Search by patronymic"
                                aria-label="Search" name="searchField">
-                        <button id="patronymicBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            <button id="patronymicBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit" formmethod="post">Search</button>
                         </form>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <form class="form-inline">
-                        <input id="phone" class="form-control mr-sm-2" type="tel" placeholder="Search by phoneNum"
+                        <form class="form-inline" action="/search">
+                            <input name="param" hidden value="phoneNum">
+                            <input name="cutoff_frequency" hidden value="0.1">
+                            <input id="phone" class="form-control mr-sm-2" type="tel" placeholder="Search by phoneNum"
                                aria-label="Search" name="searchField">
-                        <button id="phoneBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            <button id="phoneBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit"  formmethod="post">Search</button>
                         </form>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <form class="form-inline">
-                        <input id="mail" class="form-control mr-sm-2" type="email" placeholder="Search by mail"
+                        <form class="form-inline" action="/search">
+                            <input name="param" hidden value="mail">
+                            <input name="cutoff_frequency" hidden value="0.1">
+                            <input id="mail" class="form-control mr-sm-2" type="email" placeholder="Search by mail"
                                aria-label="Search" name="searchField">
-                        <button id="mailBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            <button id="mailBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit"  formmethod="post">Search</button>
                         </form>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <form class="form-inline">
-                        <input id="all" class="form-control mr-sm-2" type="text" placeholder="Search by any field"
+                        <form class="form-inline" action="/search">
+                            <input name="param" hidden value="all">
+                            <input name="cutoff_frequency" hidden value="0.1">
+                            <input id="all" class="form-control mr-sm-2" type="text" placeholder="Search by any field"
                                aria-label="Search" name="searchField">
-                        <button id="queryBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            <button id="queryBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit"  formmethod="post">Search</button>
                         </form>
                     </div>
                 </div>
@@ -327,44 +339,45 @@
         let indexOfUpdatingUser = 0;
 
 
-        $('#nameBtn').on('click', function () {
-            alert('clicked');
-            let text = document.getElementById("text_name").value;
-            $.post('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function (data) {
-            });
-        });
-        $('#surnameBtn').on('click', function () {
-            alert('clicked');
-            let text = document.getElementById("text_surname").value;
-            $.post('/search', {param: "surname", reqString: text, cutoff_frequency: 0.01}, function (data) {
-            });
+        // $('#nameBtn').on('click', function () {
+        //     alert('clicked');
+        //     let text = document.getElementById("text_name").value;
+        //     $.post('/search', {param: "name", reqString: text, cutoff_frequency: 0.01}, function (data) {
+        //     });
+        // });
+        // $('#surnameBtn').on('click', function () {
+        //     alert('clicked');
+        //     let text = document.getElementById("text_surname").value;
+        //     $.post('/search', {param: "surname", reqString: text, cutoff_frequency: 0.01}, function (data) {
+        //     });
+        //
+        // });
+        // $('#patronymicBtn').on('click', function () {
+        //     alert('clicked');
+        //     let text = document.getElementById("text_patronymic").value;
+        //     $.post('/search', {param: "patronymic", reqString: text, cutoff_frequency: 0.01}, function (data) {
+        //     });
+        //
+        // });
+        //
+        // $('#phoneBtn').on('click', function () {
+        //     alert('clicked');
+        //     let text = document.getElementById("text_phone").value;
+        //     $.post('/search', {param: "phone", reqString: text, cutoff_frequency: 0.01}, function (data) {
+        //
+        //     });
+        //
+        // });
+        //
+        // $('#mailBtn').on('click', function () {
+        //     alert('clicked');
+        //     let text = document.getElementById("text_mail").value;
+        //     $.post('/search', {param: "mail", reqString: text, cutoff_frequency: 0.01}, function (data) {
+        //
+        //     });
+        //     //
+        // });
 
-        });
-        $('#patronymicBtn').on('click', function () {
-            alert('clicked');
-            let text = document.getElementById("text_patronymic").value;
-            $.post('/search', {param: "patronymic", reqString: text, cutoff_frequency: 0.01}, function (data) {
-            });
-
-        });
-
-        $('#phoneBtn').on('click', function () {
-            alert('clicked');
-            let text = document.getElementById("text_phone").value;
-            $.post('/search', {param: "phone", reqString: text, cutoff_frequency: 0.01}, function (data) {
-
-            });
-
-        });
-
-        $('#mailBtn').on('click', function () {
-            alert('clicked');
-            let text = document.getElementById("text_mail").value;
-            $.post('/search', {param: "mail", reqString: text, cutoff_frequency: 0.01}, function (data) {
-
-            });
-            // 
-        });
         $('button[name="delete"]').on('click', function () {
             alert('clicked');
             alert($(this).attr('id'));
