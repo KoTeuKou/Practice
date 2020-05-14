@@ -45,16 +45,12 @@ public class UserRepository {
         return delete.equals(id);
     }
 
-    public List<User> getAccountsBy(String param, String reqString, double cutoffFrequency) {
-        return elasticsearchTemplate.queryForList(new CriteriaQuery(new Criteria(param).contains(reqString)), User.class);
-    }
-
     public List<User> getAllAccounts() {
         return elasticsearchTemplate.queryForList(new NativeSearchQueryBuilder()
                 .withQuery(matchAllQuery()).build(), User.class);
     }
 
-    public List<User> getAccountsByAllFields(String param, String reqString) {
+    public List<User> getAccountsBy(String param, String reqString) {
         if (param.equals("all"))
             return elasticsearchTemplate.queryForList(new CriteriaQuery(
                         new Criteria("name").contains(reqString).or("surname").contains(reqString)

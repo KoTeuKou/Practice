@@ -17,11 +17,7 @@ public class UserService {
     }
 
     public List<User> getAccountsBy(String param, String reqString, double cutoffFrequency) {
-        return userRepository.getAccountsBy(param, reqString, cutoffFrequency);
-    }
-
-    public List<User> getAccountsByAllFields(String param, String reqString) {
-        return userRepository.getAccountsByAllFields(param, reqString);
+        return userRepository.getAccountsBy(param, reqString);
     }
 
     public List<User> getAllAccounts() {

@@ -17,6 +17,7 @@ import java.util.List;
 @RequestMapping("/")
 public class MainController {
     private UserService userService;
+    private List<User> allAccounts = new ArrayList<>();
 
     public MainController(UserService userService) {
         this.userService = userService;
@@ -28,10 +29,10 @@ public class MainController {
     }
 
     @GetMapping("users")
-    public String get(@RequestParam(required = false) String param, Model model)  {
-        List<User> allAccounts = new ArrayList<>(userService.getAllAccounts());
-        if (param != null){
-            switch (param){
+    public String get(@RequestParam(required = false) String param, Model model) {
+
+        if (param != null) {
+            switch (param) {
                 case "surname":
                     allAccounts.sort(Comparator.comparing(User::getSurname));
                     break;
@@ -45,15 +46,19 @@ public class MainController {
                     System.out.println("WTF???");
                     break;
             }
+        } else {
+            if (allAccounts.isEmpty()) {
+                allAccounts = new ArrayList<>(userService.getAllAccounts());
+            }
         }
         model.addAttribute("userList", allAccounts);
         return "users";
     }
 
     @PostMapping("search")
-    public String getUsersBy(String param, String reqString, double cutoff_frequency, Model model) {
-        List<User> users = userService.getAccountsBy(param, reqString, cutoff_frequency);
-        model.addAttribute("userList", users);
+    public String getUsersBy(String param, String searchField, double cutoff_frequency, Model model) {
+        allAccounts = new ArrayList<>(userService.getAccountsBy(param, searchField, cutoff_frequency));
+        model.addAttribute("userList", allAccounts);
         return "redirect:/users";
     }
 
@@ -61,23 +66,27 @@ public class MainController {
     public String save(User user, Model model) {
         user.generateId();
         userService.save(user);
-        List<User> accounts = userService.getAllAccounts();
-        accounts.add(user);
-        model.addAttribute("userList", accounts);
+        allAccounts.add(user);
+        model.addAttribute("userList", allAccounts);
         return "redirect:/users";
     }
 
     @PostMapping("delete")
     public String delete(String id, Model model) {
         userService.remove(id);
-        model.addAttribute("userList", userService.getAllAccounts());
+        User reqUser = allAccounts.stream().filter(x -> x.getId().equals(id)).findFirst().get();
+        allAccounts.remove(reqUser);
+        model.addAttribute("userList", allAccounts);
         return "redirect:/users";
     }
 
     @PostMapping("update")
-    public String update(User user, Model model)  {
+    public String update(User user, Model model) {
         userService.save(user);
-        model.addAttribute("userList", userService.getAllAccounts());
+        User reqUser = allAccounts.stream().filter(x -> x.getId().equals(user.getId())).findFirst().get();
+        int index = allAccounts.indexOf(reqUser);
+        allAccounts.set(index, user);
+        model.addAttribute("userList", allAccounts);
         return "redirect:/users";
     }
 }

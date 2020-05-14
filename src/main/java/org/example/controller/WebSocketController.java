@@ -20,6 +20,6 @@ public class WebSocketController {
     @SendTo("/topic/autocomplete")
     public List<User> autocomplete(String text) {
         String[] strings = text.split("`");
-        return userService.getAccountsByAllFields(strings[0], strings[1]);
+        return userService.getAccountsBy(strings[0], strings[1], 0.1);  // cutoffFrequency is not using
     }
 }
