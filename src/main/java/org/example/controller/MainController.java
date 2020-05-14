@@ -59,13 +59,8 @@ public class MainController {
     @PostMapping("search")
     public String getUsersBy(String surnameSearchField, String nameSearchField, String patronymicSearchField,
                              String phoneSearchField, String mailSearchField, Model model) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("SURNAME", surnameSearchField);
-        params.put("NAME", nameSearchField);
-        params.put("PATRONYMIC", patronymicSearchField);
-        params.put("PHONE", phoneSearchField);
-        params.put("MAIL", mailSearchField);
-        allAccounts = new ArrayList<>(userService.getAccountsBy(params));
+        allAccounts = new ArrayList<>(userService.getAccountsBy(surnameSearchField, nameSearchField, patronymicSearchField,
+                phoneSearchField, mailSearchField));
         model.addAttribute("userList", allAccounts);
         return "users";
     }
@@ -73,8 +68,8 @@ public class MainController {
     @PostMapping("save")
     public String save(User user, Model model) {
         user.generateId();
-        userService.save(user);
-        allAccounts.add(user);
+        User userFromDb = userService.save(user);
+        allAccounts.add(userFromDb);
         model.addAttribute("userList", allAccounts);
         return "users";
     }

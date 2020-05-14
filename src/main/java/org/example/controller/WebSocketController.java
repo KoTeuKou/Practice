@@ -29,6 +29,7 @@ public class WebSocketController {
             params.put(name, "");
         }
         params.put(strings[0], strings[1]);
-        return userService.getAccountsBy(params);
+        return userService.getAccountsBy(params.get("SURNAME"),params.get("NAME"),params.get("PATRONYMIC"),
+                params.get("PHONE"),params.get("MAIL"));
     }
 }
