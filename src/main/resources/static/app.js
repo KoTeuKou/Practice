@@ -7,10 +7,8 @@ function connect() {
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         stompClient.subscribe('/topic/autocomplete', function (autocomplete) {
-            console.log(autocomplete.body);
             autocompleteArray = JSON.parse(autocomplete.body);
             autocompleteArray2.length = 0;
-            console.log(requestParam);
             $.each(autocompleteArray, function(i, item) {
                 switch (requestParam) {
                     case "SURNAME":
@@ -39,9 +37,7 @@ function connect() {
                         });
                         break;
                 }
-                // autocompleteArray2 = [...new Set(autocompleteArray2)]
             });
-            console.log(autocompleteArray2)
         });
     });
 }
